@@ -1,3 +1,4 @@
+const path = require('path');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 
@@ -8,7 +9,8 @@ const CleanPlugin = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = (env, argv) => {
-  const isDevelopment = argv.mode === 'development';
+  const isProduction = argv && argv.mode && argv.mode === 'production';
+
   return {
     entry: './client/index.js',
     output: {
@@ -28,7 +30,7 @@ module.exports = (env, argv) => {
         {
           test: /\.scss$/,
           use: [
-            isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+            isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
             'css-loader',
             {
               loader: 'postcss-loader',
@@ -37,7 +39,7 @@ module.exports = (env, argv) => {
                 plugins: () => {
                   const plugins = [autoprefixer()];
 
-                  if (argv.mode === 'production') plugins.push(cssnano());
+                  if (isProduction) plugins.push(cssnano());
 
                   return plugins;
                 },
@@ -48,13 +50,22 @@ module.exports = (env, argv) => {
         },
       ],
     },
+    resolve: {
+      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+      alias: {
+        Pages: path.resolve(__dirname, 'client/pages'),
+        Layout: path.resolve(__dirname, 'client/components/layout'),
+        Form: path.resolve(__dirname, 'client/components/form'),
+      },
+      extensions: ['.js', '.jsx', '.json'],
+    },
     plugins: [
       new CleanPlugin(['dist']),
       new HtmlPlugin({ template: './client/index.html' }),
       new StylelintPlugin(),
       new MiniCssExtractPlugin({
-        filename: isDevelopment ? '[name].css' : '[name].[hash].css',
-        chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css',
+        filename: isProduction ? '[name].[hash].css' : '[name].css',
+        chunkFilename: isProduction ? '[id].[hash].css' : '[id].css',
       }),
     ],
     optimization: {
@@ -71,9 +82,6 @@ module.exports = (env, argv) => {
     devServer: {
       port: 3000,
       historyApiFallback: true,
-    },
-    resolve: {
-      extensions: ['.js', '.jsx'],
     },
   };
 };

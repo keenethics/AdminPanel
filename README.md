@@ -24,3 +24,7 @@ Running the project:
 ```bash
 npm start
 ```
+
+## Naming conventions
+
+We preferably use lovercase names with hyphens for file/folder and camelCase for variable names. We setup an aliases to facilitate the import of components (you can see list of aliases in webpack config) and we use names with uppercase for them.
