@@ -15,7 +15,7 @@ module.exports = (env, argv) => {
     entry: './client/index.js',
     output: {
       filename: '[name].[chunkhash].js',
-      chunkFilename: 'vendors.[chunkhash].js',
+      chunkFilename: 'vendor.[chunkhash].js',
       path: `${__dirname}/dist`,
     },
     module: {
@@ -72,9 +72,10 @@ module.exports = (env, argv) => {
       minimizer: [new TerserPlugin()],
       splitChunks: {
         cacheGroups: {
-          vendors: {
-            test: /[\\/]node_modules[\\/]/,
-            chunks: 'all',
+          vendor: {
+            test: /node_modules/,
+            chunks: 'initial',
+            enforce: true,
           },
         },
       },
