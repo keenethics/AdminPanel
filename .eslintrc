@@ -5,7 +5,9 @@
     "plugin:jsx-a11y/recommended"
   ],
   "env": {
-    "browser": true
+    "node": true,
+    "browser": true,
+    "jest": true
   },
   "settings": {
     "import/resolver": "webpack"
