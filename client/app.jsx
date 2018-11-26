@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import Routing from './routing';
+import Routes from './routing/Routes';
 
-const App = () => <Routing />;
+const App = () => <Routes />;
 
 render(<App />, document.getElementById('root'));
