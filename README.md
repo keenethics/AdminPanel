@@ -27,4 +27,24 @@ npm start
 
 ## Naming conventions
 
-We preferably use lovercase names with hyphens for file/folder and camelCase for variable names. We setup an aliases to facilitate the import of components (you can see list of aliases in webpack config) and we use names with uppercase for them.
+We preferably use `UpperCamelCase` for classes and files they're in. `lowerCamelCase` for other files, variables and functions.
+
+We setup an aliases to facilitate the import of components (you can see list of aliases in webpack config) and we use names with uppercase for them.
+
+## Linting
+
+You can lint the project via:
+
+```bash
+npm run lint
+```
+
+Check a default rules for lint in `.eslintrc` and `.stylelintrc` files. We support [a11y](https://a11yproject.com) ideas and use rules and plugins that help make project more responsive and available.
+
+## Reset styles
+
+We use reset CSS from [Eric A. Meyer](https://meyerweb.com/eric/tools/css/reset/index.html), you can find this styles in `/clien/styles/reset.scss`
+
+The goal of a reset stylesheet is to reduce browser inconsistencies in things like default line heights, margins and font sizes of headings, and so on.
+
+
