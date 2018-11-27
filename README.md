@@ -29,7 +29,7 @@ npm start
 
 We preferably use `UpperCamelCase` for classes and files they're in. `lowerCamelCase` for other files, variables and functions.
 
-We setup an aliases to facilitate the import of components (you can see list of aliases in webpack config) and we use names with uppercase for them.
+We setup aliases to import components (you can see list of aliases in webpack config) and we use uppercase names for them.
 
 ## Linting
 
@@ -39,12 +39,12 @@ You can lint the project via:
 npm run lint
 ```
 
-Check a default rules for lint in `.eslintrc` and `.stylelintrc` files. We support [a11y](https://a11yproject.com) ideas and use rules and plugins that help make project more responsive and available.
+Check default lint-rules in `.eslintrc` and `.stylelintrc`. We support [a11y](https://a11yproject.com) ideas. We use rules and plugins that help making project more responsive and accessible.
 
 ## Reset styles
 
 We use reset CSS from [Eric A. Meyer](https://meyerweb.com/eric/tools/css/reset/index.html), you can find this styles in `/clien/styles/reset.scss`
 
-The goal of a reset stylesheet is to reduce browser inconsistencies in things like default line heights, margins and font sizes of headings, and so on.
+The goal of reset-stylesheet is to reduce browser inconsistencies in things like default line heights, margins and font sizes of headings, and so on.
 
 
