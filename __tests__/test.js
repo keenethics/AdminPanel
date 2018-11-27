@@ -1,6 +1,6 @@
 /* global page */
 
-describe('Google', () => {
+describe('Sample tests', () => {
   beforeAll(async () => {
     await page.goto('http://localhost:3000');
   });
