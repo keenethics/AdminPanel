@@ -14,8 +14,8 @@ module.exports = (env, argv) => {
   return {
     entry: './client/index.js',
     output: {
-      filename: '[name].[chunkhash].js',
-      chunkFilename: 'vendor.[chunkhash].js',
+      filename: isProduction ? '[name].[chunkhash].js' : '[name].[hash].js',
+      chunkFilename: isProduction ? 'vendor.[chunkhash].js' : 'vendor.[hash].js',
       path: `${__dirname}/dist`,
     },
     module: {
