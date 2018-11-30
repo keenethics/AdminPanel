@@ -14,24 +14,26 @@ const Textarea = ({
   isDisabled,
   isInvalid,
   isValid,
-}) => (
-  <textarea
-    {...{
-      id,
-      rows,
-      name,
-      placeholder,
-      onChange,
-      ...(onChange ? { value } : { defaultValue: value }),
-      className: classNames({
-        [className]: true,
-        disabled: isDisabled,
-        invalid: isInvalid,
-        valid: isValid,
-      }),
-    }}
-  />
-);
+}) => {
+  const textareaProps = {
+    id,
+    rows,
+    name,
+    placeholder,
+    onChange,
+    ...(onChange ? { value } : { defaultValue: value }),
+    className: classNames({
+      [className]: true,
+      disabled: isDisabled,
+      invalid: isInvalid,
+      valid: isValid,
+    }),
+  };
+
+  return (
+    <textarea {...textareaProps} />
+  );
+};
 
 Textarea.propTypes = {
   id: PropTypes.string,
