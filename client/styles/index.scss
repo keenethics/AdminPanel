@@ -2,6 +2,7 @@
 @import 'variables';
 @import 'reset';
 
+@import 'common/index';
 @import 'common/container';
 @import 'common/grid';
 
@@ -12,3 +13,4 @@
 @import 'components/form/textarea';
 @import 'components/form/checkbox';
 @import 'components/form/button';
+@import 'components/form/radio-button';

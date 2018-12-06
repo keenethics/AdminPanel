@@ -8,4 +8,12 @@
   &:last-child {
     margin-bottom: 0;
   }
+
+  legend {
+    display: block;
+    font-family: $font-family-main;
+    font-size: 18px;
+    color: $text-color-main;
+    padding: 5px 0;
+  }
 }
