@@ -4,7 +4,6 @@ const cssnano = require('cssnano');
 
 const HtmlPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const StylelintPlugin = require('stylelint-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
@@ -62,7 +61,6 @@ module.exports = (env, argv) => {
     plugins: [
       new CleanPlugin(['dist']),
       new HtmlPlugin({ template: './client/index.html' }),
-      new StylelintPlugin(),
       new MiniCssExtractPlugin({
         filename: isProduction ? '[name].[hash].css' : '[name].css',
         chunkFilename: isProduction ? '[id].[hash].css' : '[id].css',
