@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "main": "client/index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development",
+    "start": "concurrently \"webpack-dev-server --mode development\" \"node ./server/index.js\"",
     "build": "webpack --mode production",
     "lint-js": "eslint . --ext .js,.jsx;",
     "lint-css": "stylelint ./client/styles/**/*.scss;",
@@ -51,7 +51,15 @@
     "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "classnames": "^2.2.6",
+    "compression": "^1.7.3",
+    "concurrently": "^4.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "method-override": "^3.0.0",
+    "morgan": "^1.9.1",
     "nanoid": "^2.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
