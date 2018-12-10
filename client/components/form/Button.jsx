@@ -1,39 +1,67 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import nanoid from 'nanoid';
 
-const Button = ({
-  value,
-  type,
-  modifier,
-  onClick,
-  isDisabled,
-  isLoading,
-}) => (
-  <button
-    type={type}
-    className={`button button-${isLoading ? 'loading' : modifier}`}
-    onClick={isLoading ? null : onClick}
-    disabled={isDisabled || isLoading}
-  >
-    {value}
-  </button>
-);
+export default class Button extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.id = props.id || `button-${nanoid(8)}`;
+  }
+
+  render() {
+    const {
+      children,
+      className,
+      text,
+      type,
+      onClick,
+      isDisabled,
+      isLoading,
+    } = this.props;
+    const buttonClass = classNames({
+      button: true,
+      [className]: className,
+      disabled: isDisabled,
+      loading: isLoading,
+    });
+
+    return (
+      <button
+        id={this.id}
+        className={buttonClass}
+        type={type}
+        onClick={isLoading ? null : onClick}
+        disabled={isDisabled || isLoading}
+      >
+        {children || text}
+      </button>
+    );
+  }
+}
 
 Button.propTypes = {
-  value: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.element,
+    PropTypes.array,
+  ]),
+  id: PropTypes.string,
+  className: PropTypes.string,
+  text: PropTypes.string,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
-  modifier: PropTypes.oneOf(['default', 'green', 'blue', 'red']),
   onClick: PropTypes.func,
   isDisabled: PropTypes.bool,
   isLoading: PropTypes.bool,
 };
 Button.defaultProps = {
-  value: 'Button',
+  children: null,
+  id: null,
+  className: null,
+  text: 'Button',
   type: 'button',
-  modifier: 'default',
   onClick: null,
   isLoading: false,
   isDisabled: false,
 };
-
-export default Button;

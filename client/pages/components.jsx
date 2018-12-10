@@ -15,7 +15,7 @@ class Components extends Component {
     super(props);
 
     this.state = {
-      name: 'Designer',
+      name: '',
     };
   }
 
@@ -52,17 +52,18 @@ class Components extends Component {
             <Textfield
               id="textfield-password"
               placeholder="Excellent password"
+              type="password"
             />
           </Fieldset>
           <Fieldset legend="User role" className="register-panel">
-            <RadioButton name="role" text="Developer" />
+            <RadioButton name="role" text="Developer" isChecked />
             <RadioButton name="role" text="Designer" />
             <RadioButton name="role" text="Manager" />
           </Fieldset>
           <Fieldset>
             <div className="row">
               <div className="col-1-2">
-                <Button value="Log in" />
+                <Button text="Sign up" className="green" />
               </div>
               <div className="col-1-2">
                 <Checkbox text="Remember me" />

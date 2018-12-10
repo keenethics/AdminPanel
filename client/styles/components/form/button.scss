@@ -33,7 +33,7 @@
     outline: none;
   }
 
-  &-green {
+  &.green {
     $color: $color-green;
 
     background: $color;
@@ -54,7 +54,7 @@
     }
   }
 
-  &-blue {
+  &.blue {
     $color: $color-blue;
 
     background: $color;
@@ -75,7 +75,7 @@
     }
   }
 
-  &-red {
+  &.red {
     $color: $color-red;
 
     background: $color;
@@ -103,12 +103,13 @@
     cursor: auto;
   }
 
-  &-loading {
+  &.loading {
+    border: 1px solid transparent;
     animation: pulse 2s infinite;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    &-loading {
+    &.loading {
       animation: none;
     }
   }

@@ -6,8 +6,8 @@ const Fieldset = ({ children, legend, className }) => {
   if (!children) return null;
 
   const fieldsetClass = classNames({
-    [className]: true,
     fieldset: true,
+    [className]: className,
   });
 
   return (
@@ -24,6 +24,7 @@ Fieldset.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.element,
+    PropTypes.array,
   ]),
 };
 Fieldset.defaultProps = {

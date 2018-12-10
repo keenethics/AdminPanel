@@ -54,6 +54,7 @@ module.exports = (env, argv) => {
       alias: {
         Pages: path.resolve(__dirname, 'client/pages'),
         Layout: path.resolve(__dirname, 'client/components/layout'),
+        Common: path.resolve(__dirname, 'client/components/common'),
         Form: path.resolve(__dirname, 'client/components/form'),
       },
       extensions: ['.js', '.jsx', '.json'],

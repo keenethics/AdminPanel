@@ -22,20 +22,14 @@ export default class RadioButton extends PureComponent {
       tabIndex,
       text,
     } = this.props;
-
     const radioButtonComputedAttributes = {
-      checked: isChecked,
+      [onChange ? 'checked' : 'defaultChecked']: isChecked,
     };
     const radioButtonClass = classNames({
-      [className]: true,
+      'radio-button': true,
+      [className]: className,
       disabled: isDisabled,
     });
-
-    if (!onChange) {
-      delete radioButtonComputedAttributes.checked;
-
-      radioButtonComputedAttributes.defaultChecked = isChecked;
-    }
 
     return (
       <div className={radioButtonClass}>
@@ -70,7 +64,7 @@ RadioButton.propTypes = {
 };
 RadioButton.defaultProps = {
   id: null,
-  className: 'radio-button',
+  className: null,
   name: null,
   value: null,
   onChange: null,

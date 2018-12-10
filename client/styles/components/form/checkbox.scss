@@ -50,15 +50,59 @@
     }
   }
 
+  &.loading {
+    label::after {
+      border: 1px solid transparent;
+      animation: pulse 2s infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      label::after {
+        animation: none;
+      }
+    }
+  }
+
   [type='checkbox'] {
     position: absolute;
     top: -9999px;
     left: -9999px;
     visibility: hidden;
 
-    &:checked + label::before {
-      left: 0;
-      background: #2684ff;
+    &:checked {
+      + label::before {
+        left: 0;
+        background: #2684ff;
+      }
+    }
+
+    &:disabled {
+      + label {
+        color: $text-color-secondary;
+        cursor: auto;
+      }
+
+      + label::before {
+        opacity: 0.6;
+      }
+
+      + label::after {
+        background-color: $disable-color-main;
+      }
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      background-color: $disable-color-main;
+    }
+
+    50% {
+      background-color: $disable-color-secondary;
+    }
+
+    100% {
+      background-color: $disable-color-main;
     }
   }
 }

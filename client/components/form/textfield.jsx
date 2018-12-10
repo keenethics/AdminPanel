@@ -18,7 +18,7 @@ const Textfield = ({
   isValid,
 }) => {
   const textfieldClass = classNames({
-    [className]: true,
+    [className]: className,
     disabled: isDisabled,
     invalid: isInvalid,
     valid: isValid,

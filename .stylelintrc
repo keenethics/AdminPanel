@@ -3,6 +3,7 @@
   "extends": "stylelint-config-sass-guidelines",
   "rules": {
     "max-nesting-depth": 3,
+    "selector-max-compound-selectors": 4,
     "selector-list-comma-newline-after": null,
     "order/properties-alphabetical-order": null,
     "a11y/media-prefers-reduced-motion": true,
