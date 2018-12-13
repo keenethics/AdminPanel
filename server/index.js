@@ -15,6 +15,7 @@ app.use(compression());
 app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(morgan('dev'));
+app.use(express.static('dist'));
 
 app.use('/api', routes);
 
