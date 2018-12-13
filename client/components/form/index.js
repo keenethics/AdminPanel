@@ -1,1 +1,1 @@
-export Textfield from 'Form/Textfield';
+export Textfield from 'Form/textfield';
