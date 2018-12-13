@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
@@ -18,6 +19,8 @@ app.use(morgan('dev'));
 app.use(express.static('dist'));
 
 app.use('/api', routes);
+
+app.get('/*', (req, res) => res.sendFile(path.join(__dirname, '../client/index.html')));
 
 const port = process.env.APP_PORT || 3001;
 const host = process.env.APP_HOST || 'localhost';
