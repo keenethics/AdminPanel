@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import cc from 'classcat';
 import nanoid from 'nanoid';
 
 import { Label } from 'Form';
@@ -26,7 +26,7 @@ export default class Checkbox extends PureComponent {
     const checkboxComputedAttributes = {
       [onChange ? 'checked' : 'defaultChecked']: isChecked,
     };
-    const checkboxClass = classNames({
+    const checkboxClass = cc({
       checkbox: true,
       [className]: className,
       disabled: isDisabled,

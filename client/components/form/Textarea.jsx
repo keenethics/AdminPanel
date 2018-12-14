@@ -1,39 +1,71 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import cc from 'classcat';
 import nanoid from 'nanoid';
 
-const Textarea = ({
-  id,
-  className,
-  name,
-  value,
-  placeholder,
-  rows,
-  onChange,
-  isDisabled,
-  isInvalid,
-  isValid,
-}) => {
-  const textareaProps = {
-    id,
-    rows,
-    name,
-    placeholder,
-    onChange,
-    ...(onChange ? { value } : { defaultValue: value }),
-    className: classNames({
-      [className]: true,
-      disabled: isDisabled,
-      invalid: isInvalid,
-      valid: isValid,
-    }),
-  };
+export default class Textarea extends PureComponent {
+  constructor(props) {
+    super(props);
 
-  return (
-    <textarea {...textareaProps} />
-  );
-};
+    this.id = props.id || `textarea-${nanoid(8)}`;
+    this.state = {
+      value: props.value,
+    };
+  }
+
+  onChange = (e) => {
+    const { onChange } = this.props;
+
+    this.setState({
+      value: e.target.value,
+    });
+
+    if (onChange) onChange(e);
+  }
+
+  render() {
+    const {
+      className,
+      name,
+      placeholder,
+      rows,
+      onChange,
+      isDisabled,
+      isInvalid,
+      isValid,
+    } = this.props;
+    const { value } = this.state;
+
+    const textareaProps = {
+      id: this.id,
+      rows,
+      name,
+      placeholder,
+      onChange: this.onChange,
+      className: cc({
+        textarea: true,
+        [className]: className,
+        disabled: isDisabled,
+        invalid: isInvalid,
+        valid: isValid,
+      }),
+    };
+    const textareaComputedAttributes = {
+      [onChange ? 'value' : 'defaultValue']: value,
+    };
+
+    return (
+      <div className="textarea">
+        <pre>
+          {value}
+          <br />
+          <br />
+        </pre>
+        <textarea {...textareaProps} {...textareaComputedAttributes} />
+      </div>
+    );
+  }
+}
 
 Textarea.propTypes = {
   id: PropTypes.string,
@@ -48,8 +80,8 @@ Textarea.propTypes = {
   isValid: PropTypes.bool,
 };
 Textarea.defaultProps = {
-  id: `textarea-${nanoid(8)}`,
-  className: 'textarea',
+  id: null,
+  className: null,
   placeholder: '',
   name: '',
   value: '',
@@ -59,5 +91,3 @@ Textarea.defaultProps = {
   isInvalid: false,
   isValid: false,
 };
-
-export default Textarea;

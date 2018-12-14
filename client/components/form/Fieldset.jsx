@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import cc from 'classcat';
 
 const Fieldset = ({ children, legend, className }) => {
   if (!children) return null;
 
-  const fieldsetClass = classNames({
+  const fieldsetClass = cc({
     fieldset: true,
     [className]: className,
   });

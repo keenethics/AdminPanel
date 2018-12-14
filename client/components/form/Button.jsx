@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import cc from 'classcat';
 import nanoid from 'nanoid';
 
 export default class Button extends PureComponent {
@@ -20,7 +20,7 @@ export default class Button extends PureComponent {
       isDisabled,
       isLoading,
     } = this.props;
-    const buttonClass = classNames({
+    const buttonClass = cc({
       button: true,
       [className]: className,
       disabled: isDisabled,

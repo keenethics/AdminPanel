@@ -5,6 +5,7 @@ import {
   Fieldset,
   Label,
   Textfield,
+  Textarea,
   Checkbox,
   Button,
   RadioButton,
@@ -53,6 +54,15 @@ class Components extends Component {
               id="textfield-password"
               placeholder="Excellent password"
               type="password"
+            />
+          </Fieldset>
+          <Fieldset>
+            <Label htmlFor="textarea-comment">
+              Comment
+            </Label>
+            <Textarea
+              id="textarea-comment"
+              placeholder="Perfect comment"
             />
           </Fieldset>
           <Fieldset legend="User role" className="register-panel">

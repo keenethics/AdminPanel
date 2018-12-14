@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import cc from 'classcat';
 import nanoid from 'nanoid';
 
 import { Label } from 'Form';
@@ -25,7 +25,7 @@ export default class RadioButton extends PureComponent {
     const radioButtonComputedAttributes = {
       [onChange ? 'checked' : 'defaultChecked']: isChecked,
     };
-    const radioButtonClass = classNames({
+    const radioButtonClass = cc({
       'radio-button': true,
       [className]: className,
       disabled: isDisabled,
