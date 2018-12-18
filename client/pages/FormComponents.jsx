@@ -8,10 +8,11 @@ import {
   Textarea,
   Checkbox,
   Button,
+  RadioGroup,
   RadioButton,
 } from 'Form';
 
-class Components extends Component {
+class FormComponents extends Component {
   constructor(props) {
     super(props);
 
@@ -65,10 +66,12 @@ class Components extends Component {
               placeholder="Perfect comment"
             />
           </Fieldset>
-          <Fieldset legend="User role" className="register-panel">
-            <RadioButton name="role" text="Developer" isChecked />
-            <RadioButton name="role" text="Designer" />
-            <RadioButton name="role" text="Manager" />
+          <Fieldset legend="User role" legendId="userRole" className="register-panel">
+            <RadioGroup id="userRole">
+              <RadioButton name="role" text="Developer" isChecked />
+              <RadioButton name="role" text="Designer" />
+              <RadioButton name="role" text="Manager" />
+            </RadioGroup>
           </Fieldset>
           <Fieldset>
             <div className="row">
@@ -86,4 +89,4 @@ class Components extends Component {
   }
 }
 
-export default Components;
+export default FormComponents;

@@ -15,7 +15,10 @@ const Form = ({
   });
 
   return (
-    <form className={formClass} onSubmit={onSubmit}>
+    <form
+      className={formClass}
+      onSubmit={onSubmit}
+    >
       {children}
     </form>
   );

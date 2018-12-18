@@ -61,7 +61,11 @@ export default class Textarea extends PureComponent {
           <br />
           <br />
         </pre>
-        <textarea {...textareaProps} {...textareaComputedAttributes} />
+        <textarea
+          {...textareaProps}
+          {...textareaComputedAttributes}
+          aria-multiline="true"
+        />
       </div>
     );
   }
