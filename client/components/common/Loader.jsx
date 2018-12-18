@@ -1,15 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cc from 'classcat';
 
 const Loader = ({
   size,
   isInverted,
   isActive,
 }) => {
+  const loaderClass = cc({
+    loader: true,
+    inverted: isInverted,
+  });
+
   if (isActive) {
     return (
       <div
-        className={isInverted ? 'loader inverted' : 'loader'}
+        className={loaderClass}
         style={{
           width: size,
           height: size,
