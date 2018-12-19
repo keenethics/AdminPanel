@@ -19,10 +19,10 @@ Install the project dependencies:
 npm i
 ```
 
-Running the project:
+Running the project in development mode:
 
 ```bash
-npm start
+npm run dev
 ```
 
 ## Naming conventions
