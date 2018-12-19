@@ -9,12 +9,11 @@ export default class Checkbox extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.id = props.id || `radio-button-${nanoid(8)}`;
+    this.id = props.id || `checkbox-${nanoid(8)}`;
   }
 
   render() {
     const {
-      id,
       className,
       text,
       name,
@@ -36,7 +35,7 @@ export default class Checkbox extends PureComponent {
     return (
       <div className={checkboxClass}>
         <input
-          id={id}
+          id={this.id}
           type="checkbox"
           name={name}
           onChange={onChange}
@@ -44,7 +43,7 @@ export default class Checkbox extends PureComponent {
           disabled={isDisabled || isLoading}
         />
         {text ? (
-          <Label htmlFor={id}>
+          <Label htmlFor={this.id}>
             {text}
           </Label>
         ) : null}
@@ -64,7 +63,7 @@ Checkbox.propTypes = {
   isLoading: PropTypes.bool,
 };
 Checkbox.defaultProps = {
-  id: `checkbox-${nanoid(8)}`,
+  id: null,
   className: null,
   text: 'Checkbox',
   name: '',
