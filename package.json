@@ -4,7 +4,8 @@
   "version": "0.1.0",
   "main": "client/index.js",
   "scripts": {
-    "start": "concurrently \"webpack-dev-server --mode development\" \"node ./server/index.js\"",
+    "start": "NODE_ENV=production node ./server/index.js",
+    "dev": "concurrently \"webpack-dev-server --mode development\" \"node ./server/index.js\"",
     "build": "webpack --mode production",
     "lint-js": "eslint . --ext .js,.jsx;",
     "lint-css": "stylelint ./client/styles/**/*.scss;",
