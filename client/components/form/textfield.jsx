@@ -1,53 +1,55 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import cc from 'classcat';
 import nanoid from 'nanoid';
 
-const Textfield = ({
-  id,
-  className,
-  type,
-  tabIndex,
-  value,
-  name,
-  onChange,
-  placeholder,
-  autoComplete,
-  isDisabled,
-  isInvalid,
-  isValid,
-}) => {
-  const textfieldClass = classNames({
-    [className]: true,
-    disabled: isDisabled,
-    invalid: isInvalid,
-    valid: isValid,
-  });
-  const textfieldComputedAttributes = {
-    value,
-  };
+export default class Textfield extends PureComponent {
+  constructor(props) {
+    super(props);
 
-  if (!onChange) {
-    delete textfieldComputedAttributes.value;
-
-    textfieldComputedAttributes.defaultValue = value;
+    this.id = props.id || `textfield-${nanoid(8)}`;
   }
 
-  return (
-    <input
-      id={id}
-      type={type}
-      tabIndex={tabIndex}
-      name={name}
-      onChange={onChange || null}
-      className={textfieldClass}
-      placeholder={placeholder}
-      autoComplete={autoComplete ? 'on' : 'off'}
-      disabled={isDisabled}
-      {...textfieldComputedAttributes}
-    />
-  );
-};
+  render() {
+    const {
+      className,
+      type,
+      tabIndex,
+      value,
+      name,
+      onChange,
+      placeholder,
+      autoComplete,
+      isDisabled,
+      isInvalid,
+      isValid,
+    } = this.props;
+    const textfieldClass = cc({
+      [className]: className,
+      disabled: isDisabled,
+      invalid: isInvalid,
+      valid: isValid,
+    });
+    const textfieldComputedAttributes = {
+      [onChange ? 'value' : 'defaultValue']: value,
+    };
+
+    return (
+      <input
+        id={this.id}
+        type={type}
+        tabIndex={tabIndex}
+        name={name}
+        onChange={onChange || null}
+        className={textfieldClass}
+        placeholder={placeholder}
+        autoComplete={autoComplete ? 'on' : 'off'}
+        disabled={isDisabled}
+        {...textfieldComputedAttributes}
+      />
+    );
+  }
+}
 Textfield.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
@@ -66,7 +68,7 @@ Textfield.propTypes = {
   isValid: PropTypes.bool,
 };
 Textfield.defaultProps = {
-  id: `textfield-${nanoid(8)}`,
+  id: null,
   className: 'textfield',
   type: 'text',
   tabIndex: null,
@@ -79,5 +81,3 @@ Textfield.defaultProps = {
   isInvalid: false,
   isValid: false,
 };
-
-export default Textfield;
