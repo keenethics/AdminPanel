@@ -53,4 +53,10 @@ Declaring a language attribute on the HTML element enables a screen reader to re
 
 We use ARIA (Accessible Rich Internet Applications) Landmark roles and attributes for elements. This things can help assistive technology users to quickly navigate to and past blocks of content in a web interface. For more information, read [ARIA Landmark roles](https://a11yproject.com/posts/aria-landmark-roles/) and [WAI-ARIA](https://www.w3.org/TR/wai-aria/#introduction).
 
+## PWA features
 
+### Service worker
+
+There's sample code for adding service worker to your app. You just need to uncomment it (one part of it is in webpack config and another one is in index.js).
+
+Service worker file is generated and connected via [Workbox webpack plugin](https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin). 
