@@ -7,6 +7,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
+// Uncomment to add service-worker
+// const WorkboxPlugin = require('workbox-webpack-plugin');
+
 module.exports = (env, argv) => {
   const isProduction = argv && argv.mode && argv.mode === 'production';
 
@@ -66,6 +69,13 @@ module.exports = (env, argv) => {
         filename: isProduction ? '[name].[hash].css' : '[name].css',
         chunkFilename: isProduction ? '[id].[hash].css' : '[id].css',
       }),
+      // Uncomment to add service-worker
+      // new WorkboxPlugin.GenerateSW({
+      //   // these options encourage the ServiceWorkers to get in there fast
+      //   // and not allow any straggling "old" SWs to hang around
+      //   clientsClaim: true,
+      //   skipWaiting: true,
+      // }),
     ],
     optimization: {
       minimizer: [new TerserPlugin()],
