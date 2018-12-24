@@ -7,20 +7,19 @@ const Fieldset = ({
   legend,
   legendId,
   className,
+  isDisabled,
 }) => {
-  if (!children) return null;
-
   const fieldsetClass = cc({
     fieldset: true,
     [className]: className,
+    disabled: isDisabled,
   });
-  const legendAttr = legendId ? { id: legendId } : null;
 
   return (
-    <div className={fieldsetClass}>
-      {legend ? <legend {...legendAttr}>{legend}</legend> : null}
+    <fieldset className={fieldsetClass} disabled={isDisabled}>
+      {legend ? <legend {...(legendId ? { id: legendId } : {})}>{legend}</legend> : null}
       {children}
-    </div>
+    </fieldset>
   );
 };
 
@@ -33,12 +32,14 @@ Fieldset.propTypes = {
     PropTypes.element,
     PropTypes.array,
   ]),
+  isDisabled: PropTypes.bool,
 };
 Fieldset.defaultProps = {
   legend: null,
   legendId: null,
   className: null,
   children: null,
+  isDisabled: false,
 };
 
 export default Fieldset;

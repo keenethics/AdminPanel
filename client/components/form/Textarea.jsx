@@ -59,7 +59,6 @@ export default class Textarea extends PureComponent {
         <pre>
           {value}
           <br />
-          <br />
         </pre>
         <textarea
           {...textareaProps}

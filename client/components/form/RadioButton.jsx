@@ -16,6 +16,7 @@ export default class RadioButton extends PureComponent {
     const {
       className,
       name,
+      value,
       onChange,
       isChecked,
       isDisabled,
@@ -37,6 +38,7 @@ export default class RadioButton extends PureComponent {
           id={this.id}
           type="radio"
           name={name}
+          value={value}
           onChange={onChange}
           tabIndex={tabIndex}
           {...radioButtonComputedAttributes}
