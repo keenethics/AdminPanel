@@ -4,7 +4,6 @@ const cssnano = require('cssnano');
 
 const HtmlPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const StylelintPlugin = require('stylelint-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
@@ -14,8 +13,8 @@ module.exports = (env, argv) => {
   return {
     entry: './client/index.js',
     output: {
-      filename: '[name].[chunkhash].js',
-      chunkFilename: 'vendor.[chunkhash].js',
+      filename: isProduction ? '[name].[chunkhash].js' : '[name].[hash].js',
+      chunkFilename: isProduction ? 'vendor.[chunkhash].js' : 'vendor.[hash].js',
       path: `${__dirname}/dist`,
     },
     module: {
@@ -55,6 +54,7 @@ module.exports = (env, argv) => {
       alias: {
         Pages: path.resolve(__dirname, 'client/pages'),
         Layout: path.resolve(__dirname, 'client/components/layout'),
+        Common: path.resolve(__dirname, 'client/components/common'),
         Form: path.resolve(__dirname, 'client/components/form'),
       },
       extensions: ['.js', '.jsx', '.json'],
@@ -62,7 +62,6 @@ module.exports = (env, argv) => {
     plugins: [
       new CleanPlugin(['dist']),
       new HtmlPlugin({ template: './client/index.html' }),
-      new StylelintPlugin(),
       new MiniCssExtractPlugin({
         filename: isProduction ? '[name].[hash].css' : '[name].css',
         chunkFilename: isProduction ? '[id].[hash].css' : '[id].css',

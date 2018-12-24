@@ -1,0 +1,21 @@
+.fieldset {
+  margin: $space-middle 0;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  legend {
+    display: block;
+    width: 100%;
+    font-family: $font-family-main;
+    font-size: 18px;
+    color: $text-color-main;
+    background: #fff;
+    padding: $space-small 0;
+  }
+}

@@ -47,4 +47,10 @@ We use reset CSS from [Eric A. Meyer](https://meyerweb.com/eric/tools/css/reset/
 
 The goal of reset-stylesheet is to reduce browser inconsistencies in things like default line heights, margins and font sizes of headings, and so on.
 
+## Developing for Accessibility
+
+Declaring a language attribute on the HTML element enables a screen reader to read out the text with correct pronunciation. Just add lang attribute to html tag.
+
+We use ARIA (Accessible Rich Internet Applications) Landmark roles and attributes for elements. This things can help assistive technology users to quickly navigate to and past blocks of content in a web interface. For more information, read [ARIA Landmark roles](https://a11yproject.com/posts/aria-landmark-roles/) and [WAI-ARIA](https://www.w3.org/TR/wai-aria/#introduction).
+
 

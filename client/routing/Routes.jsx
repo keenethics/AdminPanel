@@ -1,17 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+import MainLayout from 'Layout/Main';
+
 import Index from 'Pages/Index';
-import Components from 'Pages/Components';
+import FormComponents from 'Pages/FormComponents';
 import NoMatch from 'Pages/NoMatch';
 
 const Routes = () => (
   <Router>
-    <Switch>
-      <Route path="/" component={Index} exact />
-      <Route path="/components" component={Components} />
-      <Route component={NoMatch} />
-    </Switch>
+    <MainLayout>
+      <Switch>
+        <Route path="/" component={Index} exact />
+        <Route path="/form-components" component={FormComponents} />
+        <Route component={NoMatch} />
+      </Switch>
+    </MainLayout>
   </Router>
 );
 
