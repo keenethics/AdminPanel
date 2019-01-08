@@ -11,9 +11,11 @@
 
   legend {
     display: block;
+    width: 100%;
     font-family: $font-family-main;
     font-size: 18px;
     color: $text-color-main;
-    padding: 5px 0;
+    background: #fff;
+    padding: $space-small 0;
   }
 }

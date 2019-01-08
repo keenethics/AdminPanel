@@ -18,19 +18,37 @@ class FormComponents extends Component {
 
     this.state = {
       name: '',
+      password: '',
+      comment: '',
+      role: 'developer',
+      rememberMe: false,
     };
   }
 
-  onChange = ({ target }) => {
-    const { name, value } = target;
+  onChange = ({ target: { name, value } = {} } = {}) => {
+    if (name) {
+      this.setState({
+        [name]: value,
+      });
+    }
+  }
 
-    this.setState({
-      [name]: value,
-    });
+  onCheckboxToggle = ({ target: { name } = {} } = {}) => {
+    if (name) {
+      this.setState(state => ({
+        [name]: !state[name],
+      }));
+    }
   }
 
   render() {
-    const { name } = this.state;
+    const {
+      name,
+      password,
+      comment,
+      role,
+      rememberMe,
+    } = this.state;
 
     return (
       <div className="container">
@@ -55,6 +73,9 @@ class FormComponents extends Component {
               id="textfield-password"
               placeholder="Excellent password"
               type="password"
+              name="password"
+              value={password}
+              onChange={this.onChange}
             />
           </Fieldset>
           <Fieldset>
@@ -64,13 +85,34 @@ class FormComponents extends Component {
             <Textarea
               id="textarea-comment"
               placeholder="Perfect comment"
+              name="comment"
+              value={comment}
+              onChange={this.onChange}
             />
           </Fieldset>
           <Fieldset legend="User role" legendId="userRole" className="register-panel">
             <RadioGroup id="userRole">
-              <RadioButton name="role" text="Developer" isChecked />
-              <RadioButton name="role" text="Designer" />
-              <RadioButton name="role" text="Manager" />
+              <RadioButton
+                name="role"
+                text="Developer"
+                value="developer"
+                isChecked={role === 'developer'}
+                onChange={this.onChange}
+              />
+              <RadioButton
+                name="role"
+                text="Designer"
+                value="designer"
+                isChecked={role === 'designer'}
+                onChange={this.onChange}
+              />
+              <RadioButton
+                name="role"
+                text="Manager"
+                value="manager"
+                isChecked={role === 'manager'}
+                onChange={this.onChange}
+              />
             </RadioGroup>
           </Fieldset>
           <Fieldset>
@@ -79,10 +121,16 @@ class FormComponents extends Component {
                 <Button text="Sign up" className="green" />
               </div>
               <div className="col-1-2">
-                <Checkbox text="Remember me" />
+                <Checkbox
+                  text="Remember me"
+                  name="rememberMe"
+                  onChange={this.onCheckboxToggle}
+                  isChecked={rememberMe}
+                />
               </div>
             </div>
           </Fieldset>
+          <Fieldset />
         </Form>
       </div>
     );
