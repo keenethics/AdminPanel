@@ -25,7 +25,7 @@ Create `.env` file from example and make sure it has correct values:
 cp .env.example .env
 ```
 
-Running migrations:
+We are using [sequelize](http://docs.sequelizejs.com/manual/tutorial/migrations.html) and you can follow it's tutorial to perform operations. E.g. to run migrations you can run
 
 ```bash
 npx sequelize db:migrate
