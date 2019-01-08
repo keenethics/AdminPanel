@@ -25,6 +25,18 @@ Create `.env` file from example and make sure it has correct values:
 cp .env.example .env
 ```
 
+Running migrations:
+
+```bash
+npx sequelize db:migrate
+```
+
+Running seeds:
+
+```bash
+npx sequelize db:seed:all
+```
+
 Running the project in development mode:
 
 ```bash

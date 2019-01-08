@@ -6,14 +6,14 @@ const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 const methodOverride = require('method-override');
-const dotenv = require('dotenv-safe');
 const routes = require('./routes/index.route');
 
-dotenv.config();
+require('dotenv-safe').config();
 
 const app = express();
-const mode = app.get('env');
-const isProduction = mode && mode === 'production';
+app.db = require('./models');
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 app.use(cors());
 app.use(helmet());
@@ -30,8 +30,15 @@ app.get('/*', (req, res) => res.sendFile(path.join(__dirname, `../${isProduction
 const port = process.env.APP_PORT || 3001;
 const host = process.env.APP_HOST || 'localhost';
 
-app.listen(port, host, () => {
-  console.log(`Server running at http://${host}:${port}`);
-});
+app.db.sequelize
+  .authenticate()
+  .then(() => {
+    app.listen(port, host, () => {
+      console.log(`Server running at http://${host}:${port}`);
+    });
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 module.exports = app;
