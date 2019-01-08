@@ -19,6 +19,12 @@ Install the project dependencies:
 npm i
 ```
 
+Create `.env` file from example and make sure it has correct values:
+
+```bash
+cp .env.example .env
+```
+
 Running the project in development mode:
 
 ```bash

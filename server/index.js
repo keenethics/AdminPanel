@@ -6,7 +6,10 @@ const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 const methodOverride = require('method-override');
+const dotenv = require('dotenv-safe');
 const routes = require('./routes/index.route');
+
+dotenv.config();
 
 const app = express();
 const mode = app.get('env');
