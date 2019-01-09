@@ -13,19 +13,14 @@ const connectionParams = config.use_env_variable
 
 const sequelize = new Sequelize(...connectionParams, config);
 
-const db = fromPairs(fs
-  .readdirSync(__dirname)
-  .filter(file => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
-  .map((file) => {
-    const model = sequelize.import(path.join(__dirname, file));
-    return [model.name, model];
-  }));
+const models = fromPairs(
+  fs
+    .readdirSync(__dirname)
+    .filter(file => (file !== basename) && file.endsWith('.js'))
+    .map(file => sequelize.import(path.join(__dirname, file)))
+    .map(model => [model.name, model]),
+);
 
-Object.values(db).filter(model => model.associate).forEach((model) => {
-  model.associate(db);
-});
+Object.values(models).filter(model => model.associate).forEach(model => model.associate(models));
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-module.exports = db;
+module.exports = { sequelize, Sequelize, ...models };
