@@ -19,10 +19,28 @@ Install the project dependencies:
 npm i
 ```
 
-Running the project:
+Create `.env` file from example and make sure it has correct values:
 
 ```bash
-npm start
+cp .env.example .env
+```
+
+We are using [sequelize](http://docs.sequelizejs.com/manual/tutorial/migrations.html) and you can follow it's tutorial to perform operations. E.g. to run migrations you can run
+
+```bash
+npx sequelize db:migrate
+```
+
+Running seeds:
+
+```bash
+npx sequelize db:seed:all
+```
+
+Running the project in development mode:
+
+```bash
+npm run dev
 ```
 
 ## Naming conventions

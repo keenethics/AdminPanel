@@ -6,12 +6,17 @@ const HtmlPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const dotenv = require('dotenv-safe');
 
 // Uncomment to add service-worker
 // const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = (env, argv) => {
   const isProduction = argv && argv.mode && argv.mode === 'production';
+  dotenv.config();
+
+  const serverPort = process.env.APP_PORT || 3001;
+  const serverHost = process.env.APP_HOST || 'localhost';
 
   return {
     entry: './client/index.js',
@@ -92,6 +97,9 @@ module.exports = (env, argv) => {
     devServer: {
       port: 3000,
       historyApiFallback: true,
+      proxy: {
+        '/api': `http://${serverHost}:${serverPort}`,
+      },
     },
   };
 };
