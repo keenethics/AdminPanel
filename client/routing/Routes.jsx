@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import MainLayout from 'Layout/Main';
 
-import Index from '../pages/Index';
-import FormComponents from '../pages/FormComponents';
-import NoMatch from '../pages/NoMatch';
+import Index from 'Pages/Index';
+import FormComponents from 'Pages/FormComponents';
+import NoMatch from 'Pages/NoMatch';
 
 const Routes = () => (
   <Router>
