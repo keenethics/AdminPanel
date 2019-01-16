@@ -1,11 +1,13 @@
 const express = require('express');
-// import * as authCtrl from '../controllers/auth.controller';
+const authCtrl = require('../controllers/auth.controller');
 
 const router = express.Router();
 
-router.route('/login').get((req, res) => {
-  res.end('{ "a": "test" }');
-  // authCtrl.login(req, res)
-});
+router.route('/login')
+  .post(
+    authCtrl.authenticate,
+    authCtrl.generateAccessToken,
+    authCtrl.returnAccessToken,
+  );
 
 module.exports = router;
