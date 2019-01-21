@@ -10,4 +10,11 @@ router.route('/login')
     authCtrl.returnAccessToken,
   );
 
+router.route('/refresh')
+  .post(
+    authCtrl.refreshAccessToken,
+    authCtrl.generateAccessToken,
+    authCtrl.returnAccessToken,
+  );
+
 module.exports = router;
