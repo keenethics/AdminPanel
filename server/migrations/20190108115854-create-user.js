@@ -12,6 +12,13 @@ module.exports = {
     email: {
       type: Sequelize.STRING,
     },
+    password: {
+      allowNull: false,
+      type: Sequelize.STRING,
+    },
+    refresh_token: {
+      type: Sequelize.STRING,
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
