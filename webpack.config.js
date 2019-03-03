@@ -64,6 +64,8 @@ module.exports = (env, argv) => {
         Layout: path.resolve(__dirname, 'client/components/layout'),
         Common: path.resolve(__dirname, 'client/components/common'),
         Form: path.resolve(__dirname, 'client/components/form'),
+        Actions: path.resolve(__dirname, 'client/actions'),
+        Reducers: path.resolve(__dirname, 'client/reducers'),
       },
       extensions: ['.js', '.jsx', '.json'],
     },
