@@ -1,6 +1,7 @@
 process.env.NODE_ENV = 'test';
 process.env.API_BASE = '/api';
 
+const sequelize = require('sequelize');
 const supertest = require('supertest');
 const chai = require('chai');
 
@@ -9,6 +10,7 @@ const express = require('..');
 
 const request = supertest(express);
 const { User } = models;
+const { Op } = sequelize;
 
 const defaultUser = {
   email: 'john.doe@example.com',
@@ -48,7 +50,7 @@ const cleanUsersExceptDefaultOne = async () => {
 
   return User.destroy({
     where: {
-      email: { $ne: user.email },
+      email: { [Op.ne]: user.email },
     },
   });
 };
