@@ -17,33 +17,8 @@ const defaultUser = {
   password: '123321',
 };
 
-const createDefaultUser = () => User.create(defaultUser, {
-  attributes: { exclude: ['password', 'refresh_token'] },
-});
-
-const getDefaultUser = async () => {
-  const user = await User.findOne({
-    where: {
-      email: defaultUser.email,
-    },
-  });
-
-  if (!user) {
-    await createDefaultUser();
-    return getDefaultUser();
-  }
-
-  return user;
-};
-
-const loginWithDefaultUser = async () => {
-  const user = await getDefaultUser();
-
-  return request
-    .post(`${process.env.API_BASE}/auth/login`)
-    .send(user)
-    .expect(201);
-};
+const createDefaultUser = () => User.create(defaultUser);
+const getDefaultUser = () => defaultUser;
 
 const cleanUsersExceptDefaultOne = async () => {
   const user = await getDefaultUser();
@@ -55,11 +30,17 @@ const cleanUsersExceptDefaultOne = async () => {
   });
 };
 
+const cleanUsers = () => User.destroy({
+  where: {},
+  truncate: true,
+});
+
 module.exports = {
   request,
   chai,
-  should: chai.should(),
 
-  loginWithDefaultUser,
+  getDefaultUser,
+  createDefaultUser,
   cleanUsersExceptDefaultOne,
+  cleanUsers,
 };
