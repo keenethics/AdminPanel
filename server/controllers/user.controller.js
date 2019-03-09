@@ -5,7 +5,20 @@ const { User } = models;
 async function create(req, res) {
   const { email, password } = req.body;
 
+  if (!password) {
+    res.status(403).json({ error: 'Password field must not be blank' });
+  }
+
   try {
+    const existingUser = await User.findOne({
+      where: { email },
+    });
+
+    if (existingUser) {
+      res.status(409).json({ error: 'This email already exists' });
+      return;
+    }
+
     const user = await User.create({
       email,
       password,

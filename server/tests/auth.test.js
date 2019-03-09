@@ -53,7 +53,7 @@ describe('POST /user', () => {
     .send({ email: newUser.email })
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)
-    .expect(500));
+    .expect(403));
 });
 
 describe('POST /login', () => {
