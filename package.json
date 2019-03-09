@@ -13,7 +13,8 @@
     "lint-js": "eslint . --ext .js,.jsx;",
     "lint-css": "stylelint ./client/styles/**/*.scss;",
     "lint": "npm run lint-js && npm run lint-css",
-    "test": "jest"
+    "test": "jest",
+    "test-server": "./node_modules/.bin/mocha --exit --timeout 5000 ./server/tests/"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
