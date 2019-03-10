@@ -1,7 +1,6 @@
 process.env.NODE_ENV = 'test';
 process.env.API_BASE = '/api';
 
-const sequelize = require('sequelize');
 const supertest = require('supertest');
 const chai = require('chai');
 
@@ -10,7 +9,6 @@ const express = require('..');
 
 const request = supertest(express);
 const { User } = models;
-const { Op } = sequelize;
 
 const defaultUser = {
   email: 'john.doe@example.com',
@@ -20,20 +18,16 @@ const defaultUser = {
 const createDefaultUser = () => User.create(defaultUser);
 const getDefaultUser = () => defaultUser;
 
-const cleanUsersExceptDefaultOne = async () => {
-  const user = await getDefaultUser();
+// Clear data for all models
+const truncate = () => Promise.all(
+  Object.keys(models).map((key) => {
+    if (['sequelize', 'Sequelize'].includes(key)) {
+      return null;
+    }
 
-  return User.destroy({
-    where: {
-      email: { [Op.ne]: user.email },
-    },
-  });
-};
-
-const cleanUsers = () => User.destroy({
-  where: {},
-  truncate: true,
-});
+    return models[key].destroy({ where: {}, force: true });
+  }),
+);
 
 module.exports = {
   request,
@@ -41,6 +35,6 @@ module.exports = {
 
   getDefaultUser,
   createDefaultUser,
-  cleanUsersExceptDefaultOne,
-  cleanUsers,
+
+  truncate,
 };

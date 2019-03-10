@@ -2,10 +2,9 @@ const base = require('./base.test');
 
 const {
   request,
-  cleanUsersExceptDefaultOne,
+  truncate,
   createDefaultUser,
   getDefaultUser,
-  cleanUsers,
 } = base;
 
 const apiBase = process.env.API_BASE || '/api';
@@ -16,8 +15,8 @@ describe('POST /user', () => {
     password: 'test',
   };
 
-  before(() => cleanUsersExceptDefaultOne());
-  after(() => cleanUsersExceptDefaultOne());
+  before(() => truncate());
+  after(() => truncate());
 
   it('should create new user and return right data without sensitive info', () => request
     .post(`${apiBase}/user`)
@@ -58,10 +57,10 @@ describe('POST /user', () => {
 
 describe('POST /login', () => {
   before(async () => {
-    await cleanUsers();
+    await truncate();
     await createDefaultUser();
   });
-  after(() => cleanUsers());
+  after(() => truncate());
 
   const user = getDefaultUser();
 

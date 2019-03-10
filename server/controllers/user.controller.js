@@ -7,6 +7,7 @@ async function create(req, res) {
 
   if (!password) {
     res.status(403).json({ error: 'Password field must not be blank' });
+    return;
   }
 
   try {
