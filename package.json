@@ -14,7 +14,10 @@
     "lint-css": "stylelint ./client/styles/**/*.scss;",
     "lint": "npm run lint-js && npm run lint-css",
     "test": "jest",
-    "test-server": "./node_modules/.bin/mocha --exit --timeout 5000 ./server/tests/"
+    "migrate": "npx sequelize db:migrate",
+    "seeds": "npx sequelize db:seed:all",
+    "pre-test-server": "NODE_ENV=test npm run migrate && npm run seeds",
+    "test-server": "NODE_ENV=test npm run pre-test-server && ./node_modules/.bin/mocha --exit --timeout 5000 ./server/tests/"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
