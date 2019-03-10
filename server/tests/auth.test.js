@@ -64,7 +64,7 @@ describe('POST /login', () => {
 
   const user = getDefaultUser();
 
-  it('should retrieve access and refresh tokens', async () => request
+  it('should retrieve access and refresh tokens', () => request
     .post(`${apiBase}/auth/login`)
     .send(user)
     .set('Accept', 'application/json')
@@ -115,4 +115,45 @@ describe('POST /login', () => {
       }
     })
     .expect(401));
+});
+
+describe('GET /user', () => {
+  const user = getDefaultUser();
+  let authToken = '';
+  before(async () => {
+    await truncate();
+    await createDefaultUser();
+
+    // Get auth token
+    await request
+      .post(`${apiBase}/auth/login`)
+      .send(user)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(201)
+      .expect((res) => {
+        authToken = `Bearer ${res.body.token}`;
+      });
+  });
+  after(() => truncate());
+
+  it('should get list of users with default user only', () => request
+    .get(`${apiBase}/user`)
+    .set('Authorization', authToken)
+    .set('Accept', 'application/json')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect((res) => {
+      if (!Array.isArray(res.body)) {
+        throw new Error('Data is not an array');
+      }
+
+      if (res.body.length !== 1) {
+        throw new Error('Number of users is not one');
+      }
+
+      if (res.body[0].email !== user.email) {
+        throw new Error('Retrieved user is not default one');
+      }
+    }));
 });
