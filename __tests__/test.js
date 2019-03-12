@@ -1,15 +1,16 @@
 /* global page */
 
 describe('Sample tests', () => {
-  beforeAll(async () => {
-    await page.goto('http://localhost:3000');
-  });
-
-  it('should display "Index page" text on page', async () => {
-    await expect(page).toMatch('Main page');
-  });
-  it('should display Textfield on components page', async () => {
+  it('should display title on components page', async () => {
     await page.goto('http://localhost:3000/form-components');
-    await expect(page).toMatchElement('input.textfield');
+    await expect(page).toMatch('Form components');
+  });
+  it('should display title on signin page', async () => {
+    await page.goto('http://localhost:3000/signin');
+    await expect(page).toMatch('Sign in');
+  });
+  it('should display title on signup page', async () => {
+    await page.goto('http://localhost:3000/signup');
+    await expect(page).toMatch('Sign up');
   });
 });
