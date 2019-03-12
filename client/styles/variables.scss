@@ -3,24 +3,29 @@ $font-family-main: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 $color-dark: #444;
 $color-green: #6cb543;
 $color-red: #ea463f;
-$color-blue: #007eff;
-
-$color-header-border: #e3e3e3;
-$color-header-background: #fff;
+$color-blue: #2684ff;
+$color-lightgray: #e5e5e5;
+$color-gray: #8a8a8a;
 
 $background-color-main: #fff;
-$background-color-secondary: #faf8f5;
+$background-color-secondary: #f9f9f9;
 
 $text-color-main: #000;
 $text-color-secondary: #989898;
 
-$text-color-link: #007eff;
-$text-color-visited-link: darken(#007eff, 15%);
-$text-color-active-link: lighten(#007eff, 15%);
+$text-color-link: $color-blue;
+$text-color-visited-link: $text-color-link;
+$text-color-active-link: lighten($text-color-link, 10%);
 
 $disable-color-main: #eee;
 $disable-color-secondary: #e3e3e3;
 
+$color-header-border: $color-lightgray;
+$color-header-background: $background-color-secondary;
+$color-header-link: $color-gray;
+$color-header-active-link: $text-color-link;
+
 $space-small: 4px;
 $space-middle: 8px;
 $space-big: 16px;
+$space-extrabig: 22px;

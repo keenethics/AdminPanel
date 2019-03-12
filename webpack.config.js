@@ -70,7 +70,7 @@ module.exports = (env, argv) => {
       extensions: ['.js', '.jsx', '.json'],
     },
     plugins: [
-      new CleanPlugin(['dist']),
+      new CleanPlugin(),
       new HtmlPlugin({ template: './client/index.html' }),
       new MiniCssExtractPlugin({
         filename: isProduction ? '[name].[hash].css' : '[name].css',

@@ -1,10 +1,25 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import { StoreContext } from 'redux-react-hook';
+
+import reducers from 'Reducers';
+
 import Routes from './routing/Routes';
 
+const devtool = '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__';
+const composeEnhancers = typeof window === 'object' && window[devtool] ? window[devtool]({}) : compose;
+
+const middlewares = composeEnhancers(applyMiddleware(thunk));
+
+const store = createStore(reducers, middlewares);
+
 const App = () => (
-  <Routes />
+  <StoreContext.Provider value={store}>
+    <Routes />
+  </StoreContext.Provider>
 );
 
 render(<App />, document.getElementById('root'));

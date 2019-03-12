@@ -19,7 +19,7 @@
   cursor: text;
 
   &::placeholder {
-    color: hsl(0, 0%, 50%);
+    color: $color-gray;
   }
 
   &:hover {
@@ -27,8 +27,8 @@
   }
 
   &:focus {
-    border-color: #2684ff;
-    box-shadow: 0 0 0 1px #2684ff;
+    border-color: $color-blue;
+    box-shadow: 0 0 0 1px $color-blue;
     background-color: hsl(0, 0%, 100%);
   }
 
@@ -36,5 +36,15 @@
     pointer-events: none;
     background-color: hsl(0, 0%, 95%);
     border-color: hsl(0, 0%, 90%);
+  }
+
+  &.invalid {
+    border-color: $color-red;
+    color: $color-red;
+
+    &:focus {
+      border-color: $color-red;
+      box-shadow: 0 0 0 1px $color-red;
+    }
   }
 }

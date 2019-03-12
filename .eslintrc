@@ -13,6 +13,7 @@
     "import/resolver": "webpack"
   },
   "rules": {
+    "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] }],
     "react/button-has-type": "off",
     "jsx-a11y/anchor-is-valid": ["error", {"components": ["Link"], "specialLink": ["to"]}],
     "jsx-a11y/label-has-for": ["error", {"components": ["Label"], "required": {"every": ["id"]}}]

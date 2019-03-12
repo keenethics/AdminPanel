@@ -10,14 +10,14 @@ a {
   &:focus {
     outline: none;
     border-radius: 2px;
-    box-shadow: 0 0 0 2px rgba($text-color-link, 0.2) inset;
-  }
-
-  &:active {
-    color: $text-color-active-link;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0) inset;
   }
 
   &:visited {
     color: $text-color-visited-link;
+  }
+
+  &:active {
+    color: $text-color-active-link;
   }
 }

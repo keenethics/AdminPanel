@@ -21,6 +21,9 @@ const FormComponents = () => {
 
   return (
     <div className="container">
+      <h1>
+        Form components
+      </h1>
       <Form onSubmit={() => {}}>
         <Fieldset>
           <Label htmlFor="textfield-username">
@@ -87,7 +90,7 @@ const FormComponents = () => {
         <Fieldset>
           <div className="row">
             <div className="col-1-2">
-              <Button text="Sign up" className="green" />
+              <Button text="Sign up" />
             </div>
             <div className="col-1-2">
               <Checkbox

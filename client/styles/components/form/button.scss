@@ -106,6 +106,10 @@
   &.loading {
     border: 1px solid transparent;
     animation: pulse 2s infinite;
+
+    &:hover, &:focus {
+      border-color: transparent;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

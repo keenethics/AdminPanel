@@ -3,7 +3,17 @@
 
   a {
     display: block;
-    padding: 15px 10px;
+    padding: $space-extrabig $space-big;
+    color: $color-header-link;
+
+    &:hover, &:focus {
+      text-decoration: none;
+      color: darken($color-header-link, 20%);
+    }
+
+    &.active {
+      color: $color-header-active-link;
+    }
   }
 
   li {
