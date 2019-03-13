@@ -12,7 +12,7 @@ async function authenticate(req, res, next) {
       where: { email },
     });
 
-    if (user && user.comparePassword(password)) {
+    if (user && await user.comparePassword(password)) {
       req.user = user;
       next();
       return;
