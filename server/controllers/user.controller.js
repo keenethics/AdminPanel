@@ -9,8 +9,6 @@ async function create(req, res) {
     const user = await User.create({
       email,
       password,
-    }, {
-      attributes: { exclude: ['password', 'refresh_token'] },
     });
 
     res.status(201).json(user);
@@ -22,7 +20,7 @@ async function create(req, res) {
 async function list(req, res) {
   try {
     const users = await User.findAll({
-      attributes: { exclude: ['password', 'refresh_token'] },
+      attributes: { exclude: User.privateFields },
     });
 
     res.status(200).json(users);
