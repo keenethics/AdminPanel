@@ -59,6 +59,32 @@ npm run lint
 
 Check default lint-rules in `.eslintrc` and `.stylelintrc`. We support [a11y](https://a11yproject.com) ideas. We use rules and plugins that help making project more responsive and accessible.
 
+## Tests
+
+### E2E tests
+
+There're some example tests in `__tests__` folder. For this kind of tests we use [Jest](https://jestjs.io/) and [Puppeteer](https://pptr.dev/).
+
+Command to run E2E tests:
+
+```bash
+npm run test
+```
+
+### API tests
+
+There're server side tests in this kit too. More specifically - API tests.
+
+You can find them in `/server/tests/` directory.
+
+Command to run API tests:
+
+```bash
+npm run test-server
+```
+
+Instruments used for API tests: [SuperTest](https://github.com/visionmedia/supertest), [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/)
+
 ## Reset styles
 
 We use reset CSS from [Eric A. Meyer](https://meyerweb.com/eric/tools/css/reset/index.html), you can find this styles in `/clien/styles/reset.scss`

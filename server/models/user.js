@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const nanoid = require('nanoid/async');
+const omit = require('lodash/omit');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -12,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
   };
 
+  User.privateFields = ['password', 'refresh_token'];
+
   User.beforeCreate(async (user) => {
     const salt = await bcrypt.genSalt(10);
 
@@ -21,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
 
   User.prototype.comparePassword = function comparePassword(password) {
     return password === this.password;
+  };
+
+  User.prototype.toJSON = function toJSON() {
+    return omit(this.dataValues, User.privateFields);
   };
 
   return User;

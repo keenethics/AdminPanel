@@ -7,7 +7,8 @@
   "env": {
     "node": true,
     "browser": true,
-    "jest": true
+    "jest": true,
+    "mocha": true
   },
   "settings": {
     "import/resolver": "webpack"
