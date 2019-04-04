@@ -1,3 +1,5 @@
+import fetchHeaders from '../extensions/FetchHeaders'
+
 export const CHANGE_EMAIL = 'CHANGE_EMAIL';
 export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
 export const FETCH_REQUEST = 'FETCH_REQUEST';
@@ -22,7 +24,7 @@ export const submitForm = () => (dispatch, getState) => {
 
   dispatch(fetchRequest());
 
-  fetch('api/auth/login', {
+  fetchHeaders('api/auth/login', {
     method: 'POST',
     body: JSON.stringify({
       email: email.value,
@@ -33,5 +35,9 @@ export const submitForm = () => (dispatch, getState) => {
     },
   })
     .then(res => res.json())
-    .then(data => console.log(data));
+    .then(data => {
+      if (data.token)
+        sessionStorage.setItem('jwtToken', data.token);
+      console.log(data);
+    });
 };

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
+import fetchHeaders from '../extensions/FetchHeaders'
 
 const RouteWrapper = ({
   path,
@@ -9,7 +10,8 @@ const RouteWrapper = ({
   onlyUnauthenticated,
 }) => {
   useEffect(() => {
-    fetch('api/auth/login', {
+    console.log(111);
+    fetchHeaders('api/auth/login', {
       method: 'POST',
       body: JSON.stringify({ email: 'john.doe@example.com', password: '123321' }),
       headers: {
@@ -17,14 +19,20 @@ const RouteWrapper = ({
       },
     })
       .then(res => res.json())
-      .then(data => console.log(data));
+      .then(data => {
+        if(data.token){
+          sessionStorage.setItem('jwtToken', data.token);
+          //user = true;
+        }
+        console.log(data);
+      });
   });
   return (
     <Route
       path={path}
       render={(props) => {
         const user = null;
-
+        //const user = true;
         if (onlyAuthenticated && !user) {
           return <Redirect to={{ pathname: '/signin' }} />;
         }
