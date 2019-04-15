@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cc from 'classcat';
 import nanoid from 'nanoid';
 
-import { Label } from 'Form';
+import Label from 'Form/Label';
 
 export default class Checkbox extends PureComponent {
   constructor(props) {

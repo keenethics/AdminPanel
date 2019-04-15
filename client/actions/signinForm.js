@@ -1,4 +1,4 @@
-import fetchHeaders from '../extensions/FetchHeaders'
+import fetchHeaders from '../extensions/FetchHeaders';
 
 export const CHANGE_EMAIL = 'CHANGE_EMAIL';
 export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
@@ -35,9 +35,11 @@ export const submitForm = () => (dispatch, getState) => {
     },
   })
     .then(res => res.json())
-    .then(data => {
-      if (data.token)
+    .then((data) => {
+      if (data && data.token) {
         sessionStorage.setItem('jwtToken', data.token);
+      }
+
       console.log(data);
     });
 };

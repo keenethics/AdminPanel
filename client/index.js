@@ -1,5 +1,6 @@
-import './styles/index.scss';
+import 'whatwg-fetch';
 
+import './styles/index.scss';
 
 import './App';
 

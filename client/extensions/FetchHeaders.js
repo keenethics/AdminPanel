@@ -1,12 +1,12 @@
-const fetchHeaders = (url, options) => {
-    let token = sessionStorage.getItem('jwtToken');
-    if (token && token !== "undefined" && token !== 'null') {
-        if (!options.headers)
-            options.headers = {};
-        options.headers['Authorization'] = `Bearer ${token}`;
-    }
+export default (url, options = {}) => {
+  const token = sessionStorage.getItem('jwtToken');
 
-    return fetch(url, options);
+  if (token) {
+    options.headers = { // eslint-disable-line no-param-reassign
+      ...options.headers,
+      Authorization: `Bearer ${token}`,
+    };
+  }
+
+  return fetch(url, options);
 };
-
-export default fetchHeaders;
