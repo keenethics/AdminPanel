@@ -13,7 +13,7 @@
     "lint-js": "eslint . --ext .js,.jsx;",
     "lint-css": "stylelint ./client/styles/**/*.scss;",
     "lint": "npm run lint-js && npm run lint-css",
-    "test": "jest",
+    "test": "jest --testMatch **/__tests__/** --detectOpenHandles",
     "migrate": "npx sequelize db:migrate",
     "seeds": "npx sequelize db:seed:all",
     "pre-test-server": "NODE_ENV=test npm run migrate && npm run seeds",
