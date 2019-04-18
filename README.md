@@ -28,13 +28,13 @@ cp .env.example .env
 We are using [sequelize](http://docs.sequelizejs.com/manual/tutorial/migrations.html) and you can follow it's tutorial to perform operations. E.g. to run migrations you can run
 
 ```bash
-npx sequelize db:migrate
+npm run migrate
 ```
 
 Running seeds:
 
 ```bash
-npx sequelize db:seed:all
+npm run seeds
 ```
 
 Running the project in development mode:
