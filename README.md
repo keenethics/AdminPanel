@@ -43,6 +43,10 @@ Running the project in development mode:
 npm run dev
 ```
 
+## Start enviroments
+
+`process.env.ANALYZE` - this veriable must be seted as **on** for turn on `webpack-bundle-analyzer`. (prefer to use only for developing)
+
 ## Naming conventions
 
 We preferably use `UpperCamelCase` for classes and files they're in. `lowerCamelCase` for other files, variables and functions.

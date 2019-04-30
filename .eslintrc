@@ -11,7 +11,9 @@
     "mocha": true
   },
   "settings": {
-    "import/resolver": "webpack"
+    "import/resolver": {
+      "webpack": {}
+    }
   },
   "rules": {
     "react/button-has-type": "off",
