@@ -45,7 +45,7 @@ npm run dev
 
 ## Start enviroments
 
-`process.env.ANALYZE` - this veriable must be seted as **on** for turn on `webpack-bundle-analyzer`. (prefer to use only for developing)
+`process.env.ANALYZE` - set this variable to **on** to turn on `webpack-bundle-analyzer` (intended to use only during development).
 
 ## Naming conventions
 
