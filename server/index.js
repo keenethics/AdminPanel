@@ -6,7 +6,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 const methodOverride = require('method-override');
-const swaggerUIDist = require('swagger-ui-dist');
+const Swagger = require('./swagger');
 
 const routes = require('./routes/index.route');
 
@@ -28,9 +28,7 @@ app.use('/assets', express.static('assets'));
 app.use('/api', routes);
 
 if (!isProduction) {
-  const pathToSwaggerUi = swaggerUIDist.absolutePath();
-  app.use('/api/swagger', express.static('server/swagger'));
-  app.use('/api/swagger', express.static(pathToSwaggerUi));
+  Swagger(app);
 }
 
 app.get('/*', (req, res) => res.sendFile(path.join(__dirname, `../${isProduction ? 'dist' : 'client'}/index.html`)));

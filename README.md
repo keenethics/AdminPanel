@@ -104,3 +104,7 @@ We use ARIA (Accessible Rich Internet Applications) Landmark roles and attribute
 There's sample code for adding service worker to your app. You just need to uncomment it (one part of it is in webpack config and another one is in index.js).
 
 Service worker file is generated and connected via [Workbox webpack plugin](https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin). 
+
+## Swagger
+
+Project uses [Swagger](https://swagger.io) to document documentation API routes. You can check [example comments](https://github.com/keenethics/node-react-starter-kit/blob/60e07d395300961f3971f8586e2e23d2dbd0f5ea/server/routes/user.route.js#L9) and follow same [convention](https://swagger.io/docs/specification/basic-structure/).
