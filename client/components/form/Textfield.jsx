@@ -1,55 +1,49 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import cc from 'classcat';
 import nanoid from 'nanoid';
 
-export default class Textfield extends PureComponent {
-  constructor(props) {
-    super(props);
+const Textfield = ({
+  id,
+  className,
+  type,
+  tabIndex,
+  value,
+  name,
+  onChange,
+  placeholder,
+  autoComplete,
+  isDisabled,
+  isInvalid,
+  isValid,
+}) => {
+  const textfieldId = id || `textfield-${nanoid(8)}`;
+  const textfieldClass = cc({
+    [className]: className,
+    disabled: isDisabled,
+    invalid: isInvalid,
+    valid: isValid,
+  });
+  const textfieldComputedAttributes = {
+    [onChange ? 'value' : 'defaultValue']: value,
+  };
 
-    this.id = props.id || `textfield-${nanoid(8)}`;
-  }
+  return (
+    <input
+      id={textfieldId}
+      type={type}
+      tabIndex={tabIndex}
+      name={name}
+      onChange={onChange || null}
+      className={textfieldClass}
+      placeholder={placeholder}
+      autoComplete={autoComplete ? 'on' : 'off'}
+      disabled={isDisabled}
+      {...textfieldComputedAttributes}
+    />
+  );
+};
 
-  render() {
-    const {
-      className,
-      type,
-      tabIndex,
-      value,
-      name,
-      onChange,
-      placeholder,
-      autoComplete,
-      isDisabled,
-      isInvalid,
-      isValid,
-    } = this.props;
-    const textfieldClass = cc({
-      [className]: className,
-      disabled: isDisabled,
-      invalid: isInvalid,
-      valid: isValid,
-    });
-    const textfieldComputedAttributes = {
-      [onChange ? 'value' : 'defaultValue']: value,
-    };
-
-    return (
-      <input
-        id={this.id}
-        type={type}
-        tabIndex={tabIndex}
-        name={name}
-        onChange={onChange || null}
-        className={textfieldClass}
-        placeholder={placeholder}
-        autoComplete={autoComplete ? 'on' : 'off'}
-        disabled={isDisabled}
-        {...textfieldComputedAttributes}
-      />
-    );
-  }
-}
 Textfield.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
@@ -81,3 +75,5 @@ Textfield.defaultProps = {
   isInvalid: false,
   isValid: false,
 };
+
+export default Textfield;

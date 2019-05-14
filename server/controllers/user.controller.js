@@ -31,6 +31,25 @@ async function create(req, res) {
   }
 }
 
+async function byUserId(req, res) {
+  try {
+    const { params: { userId } } = req;
+
+    if (userId) {
+      const user = await User.findOne({
+        where: { id: userId },
+        attributes: { exclude: User.privateFields },
+      });
+
+      if (!user) res.status(204).end();
+
+      res.status(200).json(user);
+    }
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+}
+
 async function list(req, res) {
   try {
     const users = await User.findAll({
@@ -45,5 +64,6 @@ async function list(req, res) {
 
 module.exports = {
   create,
+  byUserId,
   list,
 };

@@ -1,10 +1,11 @@
 export default (url, options = {}) => {
-  const token = sessionStorage.getItem('jwtToken');
+  const userId = sessionStorage.getItem('userId');
+  const userToken = sessionStorage.getItem('userToken');
 
-  if (token) {
+  if (userId && userToken) {
     options.headers = { // eslint-disable-line no-param-reassign
       ...options.headers,
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${userToken}`,
     };
   }
 

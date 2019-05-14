@@ -1,7 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import {
+  useDispatch,
+  useMappedState,
+} from 'redux-react-hook';
 import { Route, Redirect } from 'react-router-dom';
-import fetchHeaders from '../extensions/FetchHeaders';
+
+import Loader from 'Common/Loader';
+
+import { fetchUser, clear } from 'Actions/auth';
 
 const RouteWrapper = ({
   path,
@@ -9,38 +16,37 @@ const RouteWrapper = ({
   onlyAuthenticated,
   onlyUnauthenticated,
 }) => {
+  const dispatch = useDispatch();
+  const mapState = useCallback(({ auth }) => auth);
+  const {
+    isLoading,
+    isUserPrepared,
+    user,
+  } = useMappedState(mapState);
+
   useEffect(() => {
-    fetchHeaders('api/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({ email: 'john.doe@example.com', password: '123321' }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(res => res.json())
-      .then((data) => {
-        if (data.token) {
-          sessionStorage.setItem('jwtToken', data.token);
-          // user = true;
-        }
-        console.log(data);
-      });
-  });
+    if ((onlyAuthenticated || onlyUnauthenticated) && isUserPrepared) {
+      dispatch(fetchUser());
+    }
+
+    return () => {
+      if (isUserPrepared) dispatch(clear());
+    };
+  }, [path, isUserPrepared]);
+
   return (
     <Route
       path={path}
       render={(props) => {
-        const user = null;
-        // const user = true;
+        if (isLoading) return <Loader />;
+
         if (onlyAuthenticated && !user) {
           return <Redirect to={{ pathname: '/signin' }} />;
         }
         if (onlyUnauthenticated && user) {
           return <Redirect to={{ pathname: '/' }} />;
         }
-        if (Component) {
-          return <Component {...props} />;
-        }
+        if (Component) return <Component {...props} />;
 
         return null;
       }}

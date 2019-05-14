@@ -9,4 +9,7 @@ router.route('/')
   .get(checkJWT(), userCtrl.list) // protected
   .post(userCtrl.create); // unprotected
 
+router.route('/:userId')
+  .get(checkJWT(), userCtrl.byUserId); // protected
+
 module.exports = router;

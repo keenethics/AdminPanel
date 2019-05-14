@@ -19,10 +19,12 @@ module.exports = (env, argv) => {
   const serverHost = process.env.APP_HOST || 'localhost';
 
   return {
+    devtool: isProduction ? '' : 'cheap-module-source-map',
     entry: './client/index.js',
     output: {
       filename: isProduction ? '[name].[chunkhash].js' : '[name].[hash].js',
       chunkFilename: isProduction ? 'vendor.[chunkhash].js' : 'vendor.[hash].js',
+      sourceMapFilename: '[name].map.js',
       path: `${__dirname}/dist`,
     },
     module: {
@@ -64,6 +66,7 @@ module.exports = (env, argv) => {
         Layout: path.resolve(__dirname, 'client/components/layout'),
         Common: path.resolve(__dirname, 'client/components/common'),
         Form: path.resolve(__dirname, 'client/components/form'),
+        Middleware: path.resolve(__dirname, 'client/middleware'),
         Actions: path.resolve(__dirname, 'client/actions'),
         Reducers: path.resolve(__dirname, 'client/reducers'),
       },

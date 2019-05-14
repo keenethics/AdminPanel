@@ -16,8 +16,10 @@ import {
 import {
   changeEmail,
   changePassword,
-  submitForm,
 } from 'Actions/signinForm';
+import {
+  signinUser,
+} from 'Actions/auth';
 
 const Signin = () => {
   const dispatch = useDispatch();
@@ -39,15 +41,18 @@ const Signin = () => {
       error: null,
     }));
   }, []);
+
   const onPasswordChange = useCallback(({ target }) => {
     dispatch(changePassword({
       value: target.value,
       error: null,
     }));
   }, []);
+
   const onFormSubmit = useCallback((e) => {
     e.preventDefault();
-    dispatch(submitForm());
+
+    dispatch(signinUser());
   });
 
   return (

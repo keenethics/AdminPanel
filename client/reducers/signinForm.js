@@ -1,16 +1,15 @@
 import {
   CHANGE_EMAIL,
   CHANGE_PASSWORD,
-  FETCH_REQUEST,
 } from 'Actions/signinForm';
 
 const initialState = {
   email: {
-    value: '',
+    value: 'john.doe@example.com',
     error: null,
   },
   password: {
-    value: '',
+    value: '123321',
     error: null,
   },
   isLoading: false,
@@ -27,11 +26,6 @@ const signinForm = (state = initialState, action) => {
       return {
         ...state,
         password: action.password,
-      };
-    case FETCH_REQUEST:
-      return {
-        ...state,
-        isLoading: true,
       };
     default:
       return state;

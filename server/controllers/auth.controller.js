@@ -55,7 +55,12 @@ async function refreshAccessToken(req, res, next) {
 
 function returnAccessToken({ user, token }, res) {
   if (user && token) {
-    res.status(201).json({ token, refresh_token: user.refresh_token });
+    res.status(201).json({
+      userId: user.id,
+      token,
+      refresh_token: user.refresh_token,
+    });
+
     return;
   }
 
