@@ -112,7 +112,7 @@ paths:
         description: "The email for login"
         required: true
         type: "string"
-      - name: "refresh_token"
+      - name: "refreshToken"
         in: "query"
         description: "The token allowing user to refresh his login"
         required: true

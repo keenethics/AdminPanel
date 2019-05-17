@@ -29,8 +29,8 @@ describe('POST /user', () => {
         throw new Error('Emails don\'t match!');
       }
 
-      // sensitive fields: [password, refresh_token]
-      if (res.body.password || res.body.refresh_token) {
+      // sensitive fields: [password, refreshToken]
+      if (res.body.password || res.body.refreshToken) {
         throw new Error('Sensitive user info is sent to client!');
       }
     }));
@@ -71,7 +71,7 @@ describe('POST /login', () => {
     .expect('Content-Type', /json/)
     .expect(201)
     .expect((res) => {
-      if (!(res.body.token && res.body.refresh_token)) {
+      if (!(res.body.token && res.body.refreshToken)) {
         throw new Error('Access and refresh tokens aren\'t both retrieved');
       }
     }));

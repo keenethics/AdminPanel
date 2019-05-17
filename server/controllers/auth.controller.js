@@ -44,21 +44,20 @@ async function refreshAccessToken(req, res, next) {
     req.user = await User.findOne({
       where: {
         email: req.body.email,
-        refresh_token: req.body.refresh_token,
+        refreshToken: req.body.refreshToken,
       },
     });
     next();
   } catch (e) {
-    res.status(401).json({ error: 'Invalid email or refresh_token' });
+    res.status(401).json({ error: 'Invalid email or refreshToken' });
   }
 }
 
-function returnAccessToken({ user, token }, res) {
+function returnAccessData({ user, token }, res) {
   if (user && token) {
     res.status(201).json({
-      userId: user.id,
+      user,
       token,
-      refresh_token: user.refresh_token,
     });
 
     return;
@@ -71,5 +70,5 @@ module.exports = {
   authenticate,
   generateAccessToken,
   refreshAccessToken,
-  returnAccessToken,
+  returnAccessData,
 };

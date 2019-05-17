@@ -32,6 +32,7 @@ async function create(req, res) {
 }
 
 async function byUserId(req, res) {
+  console.log('check');
   try {
     const { params: { userId } } = req;
 
@@ -41,7 +42,7 @@ async function byUserId(req, res) {
         attributes: { exclude: User.privateFields },
       });
 
-      if (!user) res.status(204).end();
+      if (!user) res.status(401).end();
 
       res.status(200).json(user);
     }

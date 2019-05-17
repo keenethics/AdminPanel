@@ -4,14 +4,14 @@ export const FETCH_AUTH_FAILURE = 'FETCH_AUTH_FAILURE';
 export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST';
 export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
 export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE';
-export const CLEAR = 'CLEAR';
 
 export const fetchAuthRequest = () => ({
   type: FETCH_AUTH_REQUEST,
 });
 
-export const fetchAuthSuccess = () => ({
+export const fetchAuthSuccess = user => ({
   type: FETCH_AUTH_SUCCESS,
+  user,
 });
 
 export const fetchAuthFailure = () => ({
@@ -31,9 +31,12 @@ export const fetchUserFailure = () => ({
   type: FETCH_USER_FAILURE,
 });
 
-export const clear = () => ({
-  type: CLEAR,
-});
+export const logout = () => (dispatch) => {
+  sessionStorage.removeItem('userId');
+  sessionStorage.removeItem('userToken');
+
+  dispatch(fetchUserFailure());
+};
 
 export const fetchUser = () => (dispatch) => {
   const userId = sessionStorage.getItem('userId');
@@ -50,14 +53,19 @@ export const fetchUser = () => (dispatch) => {
       },
     })
       .then((res) => {
-        if (res.status && res.status === 200) return res.json();
+        console.log(res);
+        if (res.ok) return res.json();
 
-        return null;
+        throw res.status;
       })
       .then((user) => {
         if (user && user.id) {
           dispatch(fetchUserSuccess(user));
         }
+      })
+      .catch((error) => {
+        // console.log(error);
+        if (error === 401) dispatch(logout());
       });
   } else {
     dispatch(fetchUserFailure());
@@ -82,12 +90,16 @@ export const signinUser = () => (dispatch, getState) => {
       },
     })
       .then(res => res.json())
-      .then((data) => {
-        if (data && data.user && data.token) {
-          sessionStorage.setItem('userId', data.user.id);
-          sessionStorage.setItem('userToken', data.token);
+      .then(({
+        user,
+        token,
+      }) => {
+        console.log(user);
+        if (user && user.id && token) {
+          sessionStorage.setItem('userId', user.id);
+          sessionStorage.setItem('userToken', token);
 
-          dispatch(fetchAuthSuccess());
+          dispatch(fetchAuthSuccess(user));
         }
       });
   } else {

@@ -5,13 +5,11 @@ import {
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
   FETCH_USER_FAILURE,
-  CLEAR,
 } from 'Actions/auth';
 
 const initialState = {
   user: null,
-  isLoading: false,
-  isUserPrepared: false,
+  isLoading: true,
 };
 
 const user = (state = initialState, action) => {
@@ -25,7 +23,7 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        isUserPrepared: true,
+        user: action.user,
       };
     case FETCH_AUTH_FAILURE:
       return {
@@ -47,12 +45,6 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-      };
-    case CLEAR:
-      return {
-        ...state,
-        isLoading: false,
-        isUserPrepared: false,
       };
     default:
       return state;

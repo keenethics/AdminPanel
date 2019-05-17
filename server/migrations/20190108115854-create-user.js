@@ -16,7 +16,7 @@ module.exports = {
       allowNull: false,
       type: Sequelize.STRING,
     },
-    refresh_token: {
+    refreshToken: {
       type: Sequelize.STRING,
     },
     createdAt: {

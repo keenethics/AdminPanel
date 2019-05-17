@@ -8,7 +8,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 import Loader from 'Common/Loader';
 
-import { fetchUser, clear } from 'Actions/auth';
+import { fetchUser } from 'Actions/auth';
 
 const RouteWrapper = ({
   path,
@@ -20,19 +20,22 @@ const RouteWrapper = ({
   const mapState = useCallback(({ auth }) => auth);
   const {
     isLoading,
-    isUserPrepared,
     user,
   } = useMappedState(mapState);
 
   useEffect(() => {
-    if ((onlyAuthenticated || onlyUnauthenticated) && isUserPrepared) {
+    if (
+      (
+        onlyAuthenticated
+        || onlyUnauthenticated
+      )
+      && !user
+    ) {
       dispatch(fetchUser());
     }
+  }, [path]);
 
-    return () => {
-      if (isUserPrepared) dispatch(clear());
-    };
-  }, [path, isUserPrepared]);
+  console.log(path, isLoading, user);
 
   return (
     <Route
