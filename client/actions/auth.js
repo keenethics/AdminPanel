@@ -53,7 +53,6 @@ export const fetchUser = () => (dispatch) => {
       },
     })
       .then((res) => {
-        console.log(res);
         if (res.ok) return res.json();
 
         throw res.status;
@@ -64,7 +63,6 @@ export const fetchUser = () => (dispatch) => {
         }
       })
       .catch((error) => {
-        // console.log(error);
         if (error === 401) dispatch(logout());
       });
   } else {
@@ -72,36 +70,81 @@ export const fetchUser = () => (dispatch) => {
   }
 };
 
-export const signinUser = () => (dispatch, getState) => {
+export const signinUser = () => async (dispatch, getState) => {
   const { signinForm } = getState();
   const { email, password } = signinForm || {};
 
   if (email && email.value && password && password.value) {
     dispatch(fetchAuthRequest());
 
-    fetch('api/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({
-        email: email.value,
-        password: password.value,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(res => res.json())
-      .then(({
-        user,
-        token,
-      }) => {
-        console.log(user);
+    try {
+      const res = await fetch('api/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({
+          email: email.value,
+          password: password.value,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await res.json();
+
+      if (res.status !== 201) {
+        throw data;
+      } else {
+        const { user, token } = data;
+
         if (user && user.id && token) {
           sessionStorage.setItem('userId', user.id);
           sessionStorage.setItem('userToken', token);
 
           dispatch(fetchAuthSuccess(user));
         }
+      }
+    } catch (error) {
+      dispatch(fetchAuthFailure());
+    }
+  } else {
+    dispatch(fetchAuthFailure());
+  }
+};
+
+export const signupUser = () => async (dispatch, getState) => {
+  const { signinForm } = getState();
+  const { email, password } = signinForm || {};
+
+  if (email && email.value && password && password.value) {
+    dispatch(fetchAuthRequest());
+
+    try {
+      const res = await fetch('api/user', {
+        method: 'POST',
+        body: JSON.stringify({
+          email: email.value,
+          password: password.value,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+      const data = await res.json();
+
+      if (res.status !== 201) {
+        throw data;
+      } else {
+        const { user, token } = data;
+
+        if (user && user.id && token) {
+          sessionStorage.setItem('userId', user.id);
+          sessionStorage.setItem('userToken', token);
+
+          dispatch(fetchAuthSuccess(user));
+        }
+      }
+    } catch (error) {
+      dispatch(fetchAuthFailure());
+    }
   } else {
     dispatch(fetchAuthFailure());
   }

@@ -19,6 +19,10 @@ import {
   changePassword,
 } from 'Actions/signupForm';
 
+import {
+  signupUser,
+} from 'Actions/auth';
+
 const Signup = () => {
   const dispatch = useDispatch();
   const mapState = useCallback(({ signupForm }) => ({
@@ -43,11 +47,16 @@ const Signup = () => {
       error: null,
     }));
   }, []);
+  const onFormSubmit = useCallback((e) => {
+    e.preventDefault();
+
+    dispatch(signupUser());
+  });
 
   return (
     <Container>
       <h1>Sign up</h1>
-      <Form onSubmit={() => {}}>
+      <Form onSubmit={onFormSubmit}>
         <Fieldset>
           <Label htmlFor="textfield-email">
             Email
@@ -74,7 +83,11 @@ const Signup = () => {
           />
         </Fieldset>
         <Fieldset>
-          <Button text="Sign up" className="green" />
+          <Button
+            text="Sign up"
+            type="submit"
+            className="green"
+          />
         </Fieldset>
       </Form>
       <div className="form-switch">

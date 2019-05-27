@@ -15,6 +15,7 @@ async function authenticate(req, res, next) {
     if (user && await user.comparePassword(password)) {
       req.user = user;
       next();
+
       return;
     }
 

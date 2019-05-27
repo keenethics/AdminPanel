@@ -2,7 +2,7 @@ const models = require('../models');
 
 const { User } = models;
 
-async function create(req, res) {
+async function create(req, res, next) {
   const { email, password } = req.body;
 
   if (!password) {
@@ -25,14 +25,20 @@ async function create(req, res) {
       password,
     });
 
-    res.status(201).json(user);
+    if (user) {
+      req.user = user;
+
+      next();
+      return;
+    }
+
+    throw new Error('User not created');
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 }
 
 async function byUserId(req, res) {
-  console.log('check');
   try {
     const { params: { userId } } = req;
 
