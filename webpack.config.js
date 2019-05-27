@@ -7,6 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const dotenv = require('dotenv-safe');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 // Uncomment to add service-worker
 // const WorkboxPlugin = require('workbox-webpack-plugin');
@@ -17,6 +18,11 @@ module.exports = (env, argv) => {
 
   const serverPort = process.env.APP_PORT || 3001;
   const serverHost = process.env.APP_HOST || 'localhost';
+  const analyze = process.env.ANALYZE === 'on' ? [new BundleAnalyzerPlugin({
+    analyzerMode: 'server',
+    analyzerPort: 8888,
+    openAnalyzer: true,
+  })] : [];
 
   return {
     devtool: isProduction ? '' : 'cheap-module-source-map',
@@ -73,6 +79,7 @@ module.exports = (env, argv) => {
       extensions: ['.js', '.jsx', '.json'],
     },
     plugins: [
+      ...analyze,
       new CleanPlugin(),
       new HtmlPlugin({ template: './client/index.html' }),
       new MiniCssExtractPlugin({
@@ -100,7 +107,7 @@ module.exports = (env, argv) => {
       },
     },
     devServer: {
-      port: 3000,
+      port: process.env.WEB_PORT || 3000,
       historyApiFallback: true,
       proxy: {
         '/api': `http://${serverHost}:${serverPort}`,

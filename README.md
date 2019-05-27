@@ -28,13 +28,13 @@ cp .env.example .env
 We are using [sequelize](http://docs.sequelizejs.com/manual/tutorial/migrations.html) and you can follow it's tutorial to perform operations. E.g. to run migrations you can run
 
 ```bash
-npx sequelize db:migrate
+npm run migrate
 ```
 
 Running seeds:
 
 ```bash
-npx sequelize db:seed:all
+npm run seeds
 ```
 
 Running the project in development mode:
@@ -42,6 +42,10 @@ Running the project in development mode:
 ```bash
 npm run dev
 ```
+
+## Start enviroments
+
+`process.env.ANALYZE` - set this variable to **on** to turn on `webpack-bundle-analyzer` (intended to use only during development).
 
 ## Naming conventions
 
@@ -104,3 +108,7 @@ We use ARIA (Accessible Rich Internet Applications) Landmark roles and attribute
 There's sample code for adding service worker to your app. You just need to uncomment it (one part of it is in webpack config and another one is in index.js).
 
 Service worker file is generated and connected via [Workbox webpack plugin](https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin). 
+
+## Swagger
+
+Project uses [Swagger](https://swagger.io) to document documentation API routes. You can check [example comments](https://github.com/keenethics/node-react-starter-kit/blob/60e07d395300961f3971f8586e2e23d2dbd0f5ea/server/routes/user.route.js#L9) and follow same [convention](https://swagger.io/docs/specification/basic-structure/).
