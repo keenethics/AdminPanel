@@ -55,11 +55,18 @@ async function refreshAccessToken(req, res, next) {
   }
 }
 
-function returnAccessData({ user, token }, res) {
+function returnAccessData({
+  user,
+  token,
+  idToken,
+  accessToken,
+}, res) {
   if (user && token) {
     res.status(201).json({
       user,
       token,
+      accessToken,
+      idToken,
     });
 
     return;
@@ -80,7 +87,8 @@ async function googleAuth(req, res, next) {
     if (user) {
       req.user = user;
       req.email = email;
-      req.token = tokens.access_token;
+      req.accessToken = tokens.access_token;
+      req.idToken = tokens.id_token;
       next();
 
       return;
@@ -93,9 +101,10 @@ async function googleAuth(req, res, next) {
       if (newUser) {
         req.user = newUser;
         req.email = email;
-        req.token = tokens.access_token;
-
+        req.accessToken = tokens.access_token;
+        req.idToken = tokens.id_token;
         next();
+
         return;
       }
 

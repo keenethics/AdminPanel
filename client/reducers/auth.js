@@ -44,6 +44,7 @@ const user = (state = initialState, action) => {
     case FETCH_USER_FAILURE:
       return {
         ...state,
+        user: null,
         isLoading: false,
       };
     default:

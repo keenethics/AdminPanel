@@ -1,6 +1,7 @@
 const models = require('../models');
 
 const { User } = models;
+const googleAuthHelper = require('../googleAuth/googleAuth');
 
 async function create(req, res, next) {
   const { email, password } = req.body;
@@ -69,8 +70,35 @@ async function list(req, res) {
   }
 }
 
+async function oAuthByToken(req, res) {
+  try {
+    const { params: { tokens } } = req;
+    const { accessToken, idToken } = JSON.parse(tokens);
+    const data = await googleAuthHelper.oAuthByTokens({
+      access_token: accessToken,
+      id_token: idToken,
+    });
+    const { email } = data;
+    if (email) {
+      const user = await User.findOne({
+        where: { email },
+        attributes: { exclude: User.privateFields },
+      });
+
+      if (!user) res.status(401).end();
+
+      res.status(200).json(user);
+    } else {
+      res.status(401).json({ error: 'Unauthorized' });
+    }
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+}
+
 module.exports = {
   create,
   byUserId,
   list,
+  oAuthByToken,
 };

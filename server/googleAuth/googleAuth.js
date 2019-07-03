@@ -30,11 +30,7 @@ function getGooglePlusApi(auth) {
 }
 
 // Extract the email and id of the google account from the "code" parameter.
-async function getGoogleAccountFromCode(code) {
-  // get the auth "tokens" from the request
-  const data = await oauth2Client.getToken(code);
-  const { tokens } = data;
-
+async function oAuthByTokens(tokens) {
   // add the tokens to the google api so we have access to the account
   oauth2Client.setCredentials(tokens);
 
@@ -54,7 +50,18 @@ async function getGoogleAccountFromCode(code) {
   };
 }
 
+async function getGoogleAccountFromCode(code) {
+  // get the auth "tokens" from the request
+  const data = await oauth2Client.getToken(code);
+  const { tokens } = data;
+
+  const userData = await oAuthByTokens(tokens);
+  return userData;
+}
+
+
 module.exports = {
   url,
   getGoogleAccountFromCode,
+  oAuthByTokens,
 };
