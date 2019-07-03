@@ -110,6 +110,38 @@ export const signinUser = () => async (dispatch, getState) => {
   }
 };
 
+export const signinUserWithGoogle = code => async (dispatch) => {
+  dispatch(fetchAuthRequest());
+
+  try {
+    const res = await fetch('api/auth/OAuth', {
+      method: 'POST',
+      body: JSON.stringify({
+        code,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await res.json();
+
+    if (res.status !== 201) {
+      throw data;
+    } else {
+      const { user, token } = data;
+
+      if (user && user.id && token) {
+        sessionStorage.setItem('userId', user.id);
+        sessionStorage.setItem('userToken', token);
+
+        dispatch(fetchAuthSuccess(user));
+      }
+    }
+  } catch (error) {
+    dispatch(fetchAuthFailure());
+  }
+};
+
 export const signupUser = () => async (dispatch, getState) => {
   const { signinForm } = getState();
   const { email, password } = signinForm || {};

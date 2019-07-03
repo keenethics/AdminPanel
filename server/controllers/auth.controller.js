@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const models = require('../models');
+const googleAuthHelper = require('../googleAuth/googleAuth');
 
 const { User } = models;
 
@@ -67,9 +68,52 @@ function returnAccessData({ user, token }, res) {
   res.status(401).json({ error: 'Unauthorized' });
 }
 
+async function googleAuth(req, res, next) {
+  const { code } = req.body;
+  const { email, tokens } = await googleAuthHelper.getGoogleAccountFromCode(code);
+
+  try {
+    const user = await User.findOne({
+      where: { email },
+    });
+
+    if (user) {
+      req.user = user;
+      req.email = email;
+      req.token = tokens.access_token;
+      next();
+
+      return;
+    }
+    try {
+      const newUser = await User.create({
+        email,
+      });
+
+      if (newUser) {
+        req.user = newUser;
+        req.email = email;
+        req.token = tokens.access_token;
+
+        next();
+        return;
+      }
+
+      throw new Error('User not created');
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
+
+    res.status(401).json({ error: 'Wrong email or password' });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+}
+
 module.exports = {
   authenticate,
   generateAccessToken,
   refreshAccessToken,
   returnAccessData,
+  googleAuth,
 };

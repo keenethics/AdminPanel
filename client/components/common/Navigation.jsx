@@ -23,6 +23,9 @@ const Navigation = () => (
         <li role="menuitem">
           <NavLink to="/signup">Sign up</NavLink>
         </li>
+        <li role="menuitem">
+          <NavLink to="/auth">Auth test</NavLink>
+        </li>
       </ul>
     </Container>
   </nav>

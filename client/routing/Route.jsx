@@ -35,13 +35,12 @@ const RouteWrapper = ({
     }
   }, [path]);
 
-  console.log(path, isLoading, user);
-
   return (
     <Route
       path={path}
       render={(props) => {
-        if (isLoading) return <Loader />;
+        if (path.includes('/callback') && user) return <Redirect to={{ pathname: '/' }} />;
+        if (isLoading && !path.includes('/callback')) return <Loader />;
 
         if (onlyAuthenticated && !user) {
           return <Redirect to={{ pathname: '/signin' }} />;
@@ -49,7 +48,7 @@ const RouteWrapper = ({
         if (onlyUnauthenticated && user) {
           return <Redirect to={{ pathname: '/' }} />;
         }
-        if (Component) return <Component {...props} />;
+        if (Component) return <Component {...props} user={user} />;
 
         return null;
       }}
