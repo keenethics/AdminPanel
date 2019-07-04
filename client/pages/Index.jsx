@@ -15,8 +15,9 @@ const Index = ({ user }) => {
   return (
     <div className="container">
       <h1>
-        Main page
+        Singin as:&nbsp;
         {user && user.email}
+        &nbsp;
         <Button
           text="Logout"
           className="green"

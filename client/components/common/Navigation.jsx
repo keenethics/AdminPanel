@@ -14,7 +14,7 @@ const Navigation = () => (
         <li role="menuitem">
           <NavLink to="/" exact>Main</NavLink>
         </li>
-        <li role="menuitem">
+        {/* <li role="menuitem">
           <NavLink to="/form-components">Form components</NavLink>
         </li>
         <li role="menuitem">
@@ -22,9 +22,9 @@ const Navigation = () => (
         </li>
         <li role="menuitem">
           <NavLink to="/signup">Sign up</NavLink>
-        </li>
+        </li> */}
         <li role="menuitem">
-          <NavLink to="/auth">Auth test</NavLink>
+          <NavLink to="/auth">Auth with Google</NavLink>
         </li>
       </ul>
     </Container>
