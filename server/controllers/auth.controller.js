@@ -60,7 +60,12 @@ function returnAccessData({
   token,
   idToken,
   accessToken,
+  error,
 }, res) {
+  if (error) {
+    res.status(403).json({ error });
+    return;
+  }
   if (user && token) {
     res.status(201).json({
       user,
@@ -77,7 +82,13 @@ function returnAccessData({
 
 async function googleAuth(req, res, next) {
   const { code } = req.body;
-  const { email, tokens } = await googleAuthHelper.getGoogleAccountFromCode(code);
+  const { email, tokens, error } = await googleAuthHelper.getGoogleAccountFromCode(code);
+  if (error) {
+    req.error = error;
+    next();
+
+    return;
+  }
 
   try {
     const user = await User.findOne({

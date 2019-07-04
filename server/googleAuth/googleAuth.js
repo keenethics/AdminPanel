@@ -45,6 +45,7 @@ async function oAuthByTokens(tokens) {
     const userGoogleId = me.data.id;
     const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
 
+    if (!userGoogleEmail.endsWith(process.env.DOMAIN)) return { error: 'Not allowed domain' };
     // return so we can login or sign up the user
     return {
       id: userGoogleId,
