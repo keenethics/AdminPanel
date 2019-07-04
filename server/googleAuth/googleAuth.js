@@ -23,6 +23,8 @@ const url = oauth2Client.generateAuthUrl({
 
   // If you only need one scope you can pass it as a string
   scope: defaultScope,
+  prompt: 'select_account',
+  hd: process.env.DOMAIN,
 });
 
 function getGooglePlusApi(auth) {
@@ -31,23 +33,27 @@ function getGooglePlusApi(auth) {
 
 // Extract the email and id of the google account from the "code" parameter.
 async function oAuthByTokens(tokens) {
-  // add the tokens to the google api so we have access to the account
-  oauth2Client.setCredentials(tokens);
+  try {
+    // add the tokens to the google api so we have access to the account
+    oauth2Client.setCredentials(tokens);
 
-  // connect to google plus - need this to get the user's email
-  const plus = getGooglePlusApi(oauth2Client);
-  const me = await plus.people.get({ userId: 'me' });
+    // connect to google plus - need this to get the user's email
+    const plus = getGooglePlusApi(oauth2Client);
+    const me = await plus.people.get({ userId: 'me' });
 
-  // get the google id and email
-  const userGoogleId = me.data.id;
-  const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
+    // get the google id and email
+    const userGoogleId = me.data.id;
+    const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
 
-  // return so we can login or sign up the user
-  return {
-    id: userGoogleId,
-    email: userGoogleEmail,
-    tokens, // you can save it to the user, to get their details without login them again
-  };
+    // return so we can login or sign up the user
+    return {
+      id: userGoogleId,
+      email: userGoogleEmail,
+      tokens, // you can save it to the user, to get their details without login them again
+    };
+  } catch (e) {
+    return { error: e.message };
+  }
 }
 
 async function getGoogleAccountFromCode(code) {
