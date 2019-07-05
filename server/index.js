@@ -40,11 +40,11 @@ app.db.sequelize
   .authenticate()
   .then(() => {
     app.listen(port, host, () => {
-      console.log(`Server running at http://${host}:${port}`);
+      console.log(`Server running at http://${host}:${port}`); // eslint-disable-line no-console
     });
   })
   .catch((err) => {
-    console.error('Unable to connect to the database:', err);
+    console.error('Unable to connect to the database:', err); // eslint-disable-line no-console
   });
 
 module.exports = app;

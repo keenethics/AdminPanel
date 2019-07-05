@@ -16,9 +16,12 @@ module.exports = (sequelize, DataTypes) => {
   User.privateFields = ['password', 'refreshToken'];
 
   User.beforeCreate(async (user) => {
-    const salt = await bcrypt.genSalt(10);
+    const { password } = user;
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(password, salt); // eslint-disable-line no-param-reassign
+    }
 
-    user.password = await bcrypt.hash(user.password, salt); // eslint-disable-line no-param-reassign
     user.refreshToken = await nanoid(); // eslint-disable-line no-param-reassign
   });
 

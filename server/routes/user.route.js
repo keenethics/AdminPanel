@@ -83,7 +83,10 @@ router.route('/')
     authCtrl.returnAccessData,
   ); // unprotected
 
-router.route('/:userId')
-  .get(checkJWT(), userCtrl.byUserId, errorHandler); // protected
+// router.route('/:userId')
+// .get(checkJWT(), userCtrl.byUserId, errorHandler); // protected
+
+router.route('/:tokens')
+  .get(checkJWT(), userCtrl.oAuthByToken, errorHandler); // protected
 
 module.exports = router;

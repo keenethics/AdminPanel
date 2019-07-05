@@ -32,20 +32,27 @@ export const fetchUserFailure = () => ({
 });
 
 export const logout = () => (dispatch) => {
-  sessionStorage.removeItem('userId');
-  sessionStorage.removeItem('userToken');
+  // sessionStorage.removeItem('userId');
+  // sessionStorage.removeItem('userToken');
+  localStorage.removeItem('userToken');
+  localStorage.removeItem('googleAccessToken');
+  localStorage.removeItem('googleIdToken');
 
   dispatch(fetchUserFailure());
 };
 
 export const fetchUser = () => (dispatch) => {
-  const userId = sessionStorage.getItem('userId');
-  const userToken = sessionStorage.getItem('userToken');
+  // const userId = sessionStorage.getItem('userId');
+  // const userToken = sessionStorage.getItem('userToken');
+  const userToken = localStorage.getItem('userToken');
+  const accessToken = localStorage.getItem('googleAccessToken');
+  const idToken = localStorage.getItem('googleIdToken');
 
-  if (userId && userToken) {
+  if (idToken && accessToken) {
     dispatch(fetchUserRequest());
 
-    fetch(`api/user/${userId}`, {
+    const tokens = JSON.stringify({ idToken, accessToken });
+    fetch(`api/user/${tokens}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -106,6 +113,44 @@ export const signinUser = () => async (dispatch, getState) => {
       dispatch(fetchAuthFailure());
     }
   } else {
+    dispatch(fetchAuthFailure());
+  }
+};
+
+export const signinUserWithGoogle = code => async (dispatch) => {
+  dispatch(fetchAuthRequest());
+
+  try {
+    const res = await fetch('api/auth/OAuth', {
+      method: 'POST',
+      body: JSON.stringify({
+        code,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await res.json();
+
+    if (res.status !== 201) {
+      throw data;
+    } else {
+      const {
+        user,
+        token,
+        idToken,
+        accessToken,
+      } = data;
+
+      if (user && user.id && token) {
+        localStorage.setItem('userToken', token);
+        localStorage.setItem('googleAccessToken', accessToken);
+        localStorage.setItem('googleIdToken', idToken);
+
+        dispatch(fetchAuthSuccess(user));
+      }
+    }
+  } catch (error) {
     dispatch(fetchAuthFailure());
   }
 };

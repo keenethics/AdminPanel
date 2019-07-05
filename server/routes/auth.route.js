@@ -50,6 +50,14 @@ router.route('/login')
     authCtrl.returnAccessData,
   );
 
+router.route('/OAuth')
+  .post(
+    errorHandler,
+    authCtrl.googleAuth,
+    authCtrl.generateAccessToken,
+    authCtrl.returnAccessData,
+  );
+
 /**
 * @swagger
 * /api/auth/refresh:
