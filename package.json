@@ -81,7 +81,7 @@
     "lodash": "^4.17.11",
     "method-override": "^3.0.0",
     "morgan": "^1.9.1",
-    "nanoid": "^2.0.3",
+    "nanoid": "^3.1.31",
     "normalizr": "^3.3.0",
     "pg": "^7.11.0",
     "prop-types": "^15.7.2",
