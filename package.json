@@ -77,7 +77,7 @@
     "googleapis": "^40.0.0",
     "helmet": "^3.18.0",
     "js-cookie": "^2.2.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.11",
     "method-override": "^3.0.0",
     "morgan": "^1.9.1",
